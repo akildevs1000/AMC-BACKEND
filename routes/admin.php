@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/company_login', [AuthController::class, 'company_login']);
+
 Route::post('/loginwith_otp', [AuthController::class, 'loginwithOTP']);
 Route::post('/check_otp/{key}', [AuthController::class, 'verifyOTP']);
 

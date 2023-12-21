@@ -40,3 +40,11 @@ include('tanent.php');
 include('member.php');
 include('community.php');
 
+
+
+
+include('amc_company.php');
+include('ticket.php');
+
+
+

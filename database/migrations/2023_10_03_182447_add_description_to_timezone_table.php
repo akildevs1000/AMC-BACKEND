@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('timezones', function (Blueprint $table) {
-            $table->string("description")->nullable();
-        });
+        // Schema::table('timezones', function (Blueprint $table) {
+        //     $table->string("description")->nullable();
+        // });
     }
 
     /**
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('timezone', function (Blueprint $table) {
-            $table->dropColumn("description");
-        });
+        // Schema::table('timezone', function (Blueprint $table) {
+        //     $table->dropColumn("description");
+        // });
     }
 };

@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Community\InfoRequest;
-use App\Http\Requests\Community\StoreRequest;
-use App\Models\AnnouncementsCategories;
+use App\Http\Requests\AMCCompany\InfoRequest;
+use App\Http\Requests\AMCCompany\StoreRequest;
 use App\Models\Company;
 use App\Models\CompanyContact;
-use App\Models\Department;
-use App\Models\Designation;
-use App\Models\Device;
-use App\Models\MailContent;
 use App\Models\Role;
-use App\Models\Theme;
 use App\Models\User;
 use App\Notifications\CompanyCreationNotification;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use TechTailor\RPG\Facade\RPG;
 
-class CommunityController extends Controller
+class AMCCompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,13 +23,13 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        return Company::where("account_type", "community")->with(['user', 'contact'])->paginate(request("per_page") ?? 10);
+        return Company::where("account_type", "AMC")->with(['user', 'contact'])->paginate(request("per_page") ?? 10);
     }
 
-    public function validateCommunity(InfoRequest $request)
+    public function validateAMCCompany(InfoRequest $request)
     {
         try {
-            return $this->response('Tanent Successfully created.', $request->validated(), true);
+            return $this->response('AMC Company Successfully validated.', $request->validated(), true);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -52,11 +46,11 @@ class CommunityController extends Controller
         $data = $request->validated();
         $user = [
             "name" => "ignore",
-            "password" => Hash::make($randPass),
+            "password" => Hash::make($randPass = "secret"),
             "email" => $data['email'],
             "is_master" => 1,
             "first_login" => 1,
-            "user_type" => "company",
+            "user_type" => "customer",
         ];
 
         $company = [
@@ -72,8 +66,7 @@ class CommunityController extends Controller
             "lat" => $request->lat,
             "lon" => $request->lon,
 
-            "management_company" => $data['management_company'],
-            "account_type" => "community",
+            "account_type" => "AMC",
 
         ];
 
@@ -154,12 +147,14 @@ class CommunityController extends Controller
         }
     }
 
-    public function communityDelete($id)
+    public function AMCCompanyDelete($id)
     {
         $Company = Company::find($id);
 
+        $User    = User::where("id", $Company->user_id)->first();
+
         try {
-            if ($Company->update(["status" => 0])) {
+            if ($Company->delete() && $User->delete()) {
                 return $this->response('Company successfully deleted.', null, true);
             } else {
                 return $this->response('Company cannot delete.', null, false);
@@ -167,16 +162,5 @@ class CommunityController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-    }
-
-    public function addDefaults($id)
-    {
-        $role = Role::insert(defaultRoles($id));
-        $department = Department::insert(defaultDepartments($id));
-        $designation = Designation::insert(defaultDesignations($id));
-        $AnnouncementsCategories = AnnouncementsCategories::insert(defaultAnnouncementCategories($id));
-        $MailContent = MailContent::insert(defaultMailContent($id));
-        $device = Device::insert(defaultDeviceManual($id));
-        return $role && $department && $designation && $AnnouncementsCategories && $MailContent && $device;
     }
 }
