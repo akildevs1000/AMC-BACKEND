@@ -47,4 +47,20 @@ class Ticket extends Model
         if (!$value) return null;
         return asset('tickets/' . $value);
     }
+
+    public function scopeFilters($query)
+    {
+        $query->when(request()->filled("title"), fn ($q) => $q->where('title', 'ILIKE', "%" . request("title") . "%"));
+
+        $query->when(request()->filled("id"), fn ($q) => $q->where("id", request("id")));
+        $query->when(request()->filled("prority"), fn ($q) => $q->where("prority", request("prority")));
+        $query->when(request()->filled("status"), fn ($q) => $q->where("status", request("status")));
+        $query->when(request()->filled("user_id"), fn ($q) => $q->where("user_id", request("user_id")));
+        $query->when(request()->filled("company_id"), fn ($q) => $q->where("company_id", request("company_id")));
+
+        // "ticket_open_date_time" => "nullable",
+        // "ticket_close_date_time" => "nullable",
+
+        return $query;
+    }
 }

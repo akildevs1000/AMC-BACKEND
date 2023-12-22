@@ -27,7 +27,11 @@ class TicketController extends Controller
 
     public function index()
     {
-        return Ticket::orderBy("id", "desc")->where("company_id", request("company_id") ?? 0)->with(['company', 'user', 'ticket_history'])->paginate(request("per_page") ?? 10);
+        $model = Ticket::query();
+        $model->orderBy("id", "desc");
+        $model->filters();
+        $model->with(['company', 'user', 'ticket_history']);
+        return $model->paginate(request("per_page") ?? 10);
     }
 
     /**
