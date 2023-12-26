@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AMCCompany\InfoRequest;
 use App\Http\Requests\AMCCompany\StoreRequest;
+use App\Http\Requests\AMCCompany\LicenseRequest;
+use App\Http\Requests\AMCCompany\ContactRequest;
+use App\Http\Requests\AMCCompany\ContactUpdateRequest;
+use App\Http\Requests\AMCCompany\GeographicRequest;
+use App\Http\Requests\AMCCompany\InfoUpdateRequest;
 use App\Models\Company;
 use App\Models\CompanyContact;
 use App\Models\Role;
+use App\Models\TradeLicense;
 use App\Models\User;
 use App\Notifications\CompanyCreationNotification;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -23,126 +30,128 @@ class AMCCompanyController extends Controller
      */
     public function index()
     {
-        return Company::where("account_type", "AMC")->with(['user', 'contact'])->paginate(request("per_page") ?? 10);
+        return Company::where("account_type", "AMC")->with(['users', 'company_contact', 'trade_license'])->paginate(request("per_page") ?? 10);
     }
 
     public function validateAMCCompany(InfoRequest $request)
     {
+        // DB::beginTransaction();
+
         try {
-            return $this->response('AMC Company Successfully validated.', $request->validated(), true);
+            $data = $request->validated();
+
+            $data["no_branch"] = 0;
+            $data["max_employee"] = 0;
+            $data["max_devices"] = 0;
+            $data["company_code"] = Company::max('id') + 1;
+            $data["account_type"] = "AMC";
+
+            if (isset($request->logo)) {
+
+                $file = $request->file('logo');
+                $ext = $file->getClientOriginalExtension();
+                $fileName = time() . '.' . $ext;
+                $request->file('logo')->move(public_path('/upload'), $fileName);
+                $data['logo'] = $fileName;
+            }
+
+            $created = Company::create($data);
+
+            return $this->response('AMC Company Successfully created.', $created, true);
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-    public function store(StoreRequest $request)
+    public function validateLicense(LicenseRequest $request)
     {
-        $randPass = RPG::Generate("luds", 8, 0, 0);
-
-        if (env("APP_ENV") == "local") {
-            Storage::put('password.txt', $randPass);
+        try {
+            $data = $request->validated();
+            $created = TradeLicense::updateOrCreate(['company_id' =>  $data["company_id"]], $data);
+            return $this->response('License Successfully created.', $created, true);
+        } catch (\Throwable $th) {
+            throw $th;
         }
+    }
 
-        $data = $request->validated();
-        $user = [
-            "name" => "ignore",
-            "password" => Hash::make($randPass = "secret"),
-            "email" => $data['email'],
-            "is_master" => 1,
-            "first_login" => 1,
-            "user_type" => "customer",
-        ];
-
-        $company = [
-            "name" => $data['company_name'],
-            "location" => $data['location'],
-            "member_from" => $data['member_from'],
-            "expiry" => $data['expiry'],
-            "company_code" => Company::max('id') + 1,
-            "no_branch" => 0,
-            "max_employee" => 0,
-            "max_devices" => 0,
-
-            "lat" => $request->lat,
-            "lon" => $request->lon,
-
-            "account_type" => "AMC",
-
-        ];
-
-        if (isset($request->logo)) {
-
-            $file = $request->file('logo');
-            $ext = $file->getClientOriginalExtension();
-            $fileName = time() . '.' . $ext;
-            $request->file('logo')->move(public_path('/upload'), $fileName);
-            $company['logo'] = $fileName;
+    public function validateContact(ContactRequest $request)
+    {
+        try {
+            $data = $request->validated();
+            $data["password"] = Hash::make("secret");
+            $data["user_type"] = "customer";
+            $created = User::updateOrCreate(['company_id' =>  $data["company_id"]], $data);
+            return $this->response('User Successfully created.', $created, true);
+        } catch (\Throwable $th) {
+            throw $th;
         }
+    }
 
-        $contact = [
-            "name" => $data['contact_name'],
-            "number" => $data['number'],
-            "position" => $data['position'],
-            "whatsapp" => $data['whatsapp'],
-        ];
+    public function validateGeographic(GeographicRequest $request)
+    {
+        try {
+            $updated = Company::where("id", $request->company_id)->update($request->except("company_id"));
 
-        DB::beginTransaction();
+            return $this->response('Geographic Successfully created.', $updated, true);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function AMCCompanyInfoUpdate(InfoUpdateRequest $request, $id)
+    {
+        try {
+            
+            $data = $request->validated();
+
+            if (isset($request->logo)) {
+
+                $file = $request->file('logo');
+                $ext = $file->getClientOriginalExtension();
+                $fileName = time() . '.' . $ext;
+                $request->file('logo')->move(public_path('/upload'), $fileName);
+                $data['logo'] = $fileName;
+            }
+
+            $updated = Company::where("id", $id)->update($data);
+
+            return $this->response('Geographic Successfully updated.', $updated, true);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function AMCLicenseUpdate(LicenseRequest $request, $id)
+    {
 
         try {
-            $role = Role::firstOrCreate(['name' => 'company']);
+            $updated = TradeLicense::where("id", $id)->update($request->validated());
 
-            if (!$role) {
-                return $this->response('Role cannot add.', null, false);
-            }
-
-            $user["role_id"] = $role->id;
-
-            if (!$user) {
-                return $this->response('User cannot add.', null, false);
-            }
-
-            $company = Company::create($company);
-
-            $user["company_id"] = $company->id;
-            $user = User::create($user);
-
-            $company->user_id = $user->id;
-            $company->save();
-
-            $user['randPass'] = $randPass;
-            try {
-                if (($company && $user) && env('IS_MAIL')) {
-                    NotificationsController::toSend($user, new CompanyCreationNotification, $company);
-                }
-            } catch (\Exception $e) {
-                return $e;
-            }
-            if (!$company) {
-                return $this->response('Company cannot add.', null, false);
-            }
-
-            $contact['company_id'] = $company->id;
-
-            $contact = CompanyContact::create($contact);
-
-            if (!$contact) {
-                return $this->response('Contact cannot add.', null, false);
-            }
-
-            $company->logo = asset('media/company/logo' . $company->logo);
-
-            DB::commit();
-
-            $record = Company::with(['user', 'contact'])->find($company->id);
-            $record->pass = $randPass;
-
-            // if (!$this->addDefaults($company->id)) {
-            //     return $this->response('Default cannot add.', null, false);
-            // }
-
-            return $this->response('Company Successfully created.', $record, true);
+            return $this->response('User Successfully updated.', $updated, true);
         } catch (\Throwable $th) {
-            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    public function AMCContactUpdate(ContactUpdateRequest $request, $id)
+    {
+
+        try {
+            $updated = User::where("id", $id)->update($request->validated());
+
+            return $this->response('User Successfully updated.', $updated, true);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function AMCGeographicUpdate(GeographicRequest $request, $id)
+    {
+        try {
+            $updated = Company::where("id", $id)->update($request->except("company_id"));
+
+            return $this->response('Geographic Successfully updated.', $updated, true);
+        } catch (\Throwable $th) {
             throw $th;
         }
     }
@@ -162,5 +171,10 @@ class AMCCompanyController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function AMCCompany($id)
+    {
+        return Company::with("users")->find($id);
     }
 }

@@ -197,33 +197,18 @@ class AuthController extends Controller
             ]);
         }
 
-        $user = User::where('email', $request->email)
-            ->where("user_type", "company")
-            ->with("company:id,user_id,name,location,logo,company_code,expiry")
-            ->select(
-                // "id",
-                // "email",
-                // "password",
-                // "is_master",
-                // "role_id",
-                // "company_id",
-                // "employee_role_id",
-                // "can_login",
-                // "web_login_access",
-                // "mobile_app_login_access",
-            )
-            ->first();
+        $user = User::where('email', $request->email)->first();
 
-        $this->throwErrorIfFail($request, $user);
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
 
         // @params User Id, action,type,companyId.
         $this->recordActivity($user->id, "Login", "Authentication", $user->company_id, $user->user_type);
 
         $user->user_type = $this->getUserType($user);
-
-        unset($user->company);
-        unset($user->employee);
-        unset($user->assigned_permissions);
 
         return [
             'token' => $user->createToken('myApp')->plainTextToken,

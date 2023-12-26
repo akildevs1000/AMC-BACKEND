@@ -33,6 +33,9 @@ class User extends Authenticatable
         'employee_role_id',
         'email_verified_at',
         'enable_whatsapp_otp',
+        'number',
+        'position',
+        'whatsapp',
     ];
 
     protected $with = ['assigned_permissions'];

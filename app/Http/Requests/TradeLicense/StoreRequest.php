@@ -34,9 +34,9 @@ class StoreRequest extends FormRequest
             "manager" => "nullable",
             "issue_date" => "nullable",
             "expiry_date" => "nullable",
-
-            // "company_id" => "required",
-
+            "trn_number" => "nullable|min:3|max:20",
+            "issued_by" => "nullable|min:3|max:20",
+            "company_id" => "nullable",
         ];
     }
 }

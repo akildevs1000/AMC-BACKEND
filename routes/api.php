@@ -42,9 +42,14 @@ include('community.php');
 
 
 
-
+// AMC Application
 include('amc_company.php');
 include('ticket.php');
 
 
-
+include('business_type.php');
+include('equipment_category.php');
+include('amc_type.php');
+include('visit_type.php');
+include('service_call_type.php');
+include('priority.php');

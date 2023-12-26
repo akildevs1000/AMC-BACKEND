@@ -19,13 +19,8 @@ class Company extends Model
     protected $hidden = [
         'password', 'updated_at',
     ];
-    protected $dates = [
-        'member_from', 'expiry',
-    ];
 
     protected $casts = [
-        'member_from' => 'date:Y/m/d',
-        'expiry' => 'date:Y/m/d',
         'created_at' => 'datetime:d-M-y',
         'no_branch' => 'boolean',
     ];
@@ -143,5 +138,20 @@ class Company extends Model
             get: fn ($value) => $value < 1000 ? 'AE000' . $value : 'AE' . $value,
             set: fn ($value) => $value,
         );
+    }
+
+    /**
+     * Get all of the users for the Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function company_contact()
+    {
+        return $this->hasOne(User::class);
     }
 }

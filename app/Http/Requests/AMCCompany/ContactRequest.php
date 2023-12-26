@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests\AMCCompany;
 
+use App\Traits\failedValidationWithName;
 use Illuminate\Foundation\Http\FormRequest;
 
-class InfoRequest extends FormRequest
+class ContactRequest extends FormRequest
 {
+    use failedValidationWithName;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,12 +27,12 @@ class InfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'logo' => ['image', 'mimes:jpeg,png,jpg,svg', 'max:2048', 'sometimes', 'nullable'],
-            'name' => 'required|min:3|max:20',
-            'contact_number' => 'required',
-            'email' => 'required|email|min:3|max:191|unique:companies',
-            'member_from' => ['required'],
-            'expiry' => ['required'],
+            "name" => "required|min:3|max:20",
+            "number" => "required|min:3|max:20",
+            "position" => "required|min:3|max:20",
+            "whatsapp" => "required|min:3|max:20",
+            "email" => "required|min:3|max:20|unique:users",
+            "company_id" => "required",
         ];
     }
 }
