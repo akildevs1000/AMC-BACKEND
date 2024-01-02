@@ -266,14 +266,15 @@ class AuthController extends Controller
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
-        } else if ($user->company_id > 0 && $user->company->expiry < now()) {
-            throw ValidationException::withMessages([
-                'email' => ['Subscription has been expired.'],
-            ]);
-        } else if (!$user->web_login_access && !$user->is_master) {
-            throw ValidationException::withMessages([
-                'email' => ['Login access is disabled. Please contact your admin.'],
-            ]);
-        }
+        } 
+        // else if ($user->company_id > 0 && $user->company->expiry < now()) {
+        //     throw ValidationException::withMessages([
+        //         'email' => ['Subscription has been expired.'],
+        //     ]);
+        // } else if (!$user->web_login_access && !$user->is_master) {
+        //     throw ValidationException::withMessages([
+        //         'email' => ['Login access is disabled. Please contact your admin.'],
+        //     ]);
+        // }
     }
 }

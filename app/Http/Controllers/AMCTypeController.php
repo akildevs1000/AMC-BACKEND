@@ -15,6 +15,16 @@ class AMCTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function dropDownList()
+    {
+        return AMCType::orderBy("name", "asc")->get();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return AMCType::orderBy("id", "desc")->paginate(request("per_page") ?? 10);

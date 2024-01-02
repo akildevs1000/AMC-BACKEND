@@ -154,4 +154,14 @@ class Company extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    /**
+     * Get all of the comments for the Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function company_documents()
+    {
+        return $this->hasMany(CompanyDocument::class)->latest();
+    }
 }

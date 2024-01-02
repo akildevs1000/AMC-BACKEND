@@ -8,6 +8,16 @@ use App\Models\ServiceCallType;
 
 class ServiceCallTypeController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dropDownList()
+    {
+        return ServiceCallType::orderBy("name", "asc")->get();
+    }
+
     public function index()
     {
         return ServiceCallType::orderBy("id", "desc")->paginate(request("per_page") ?? 10);

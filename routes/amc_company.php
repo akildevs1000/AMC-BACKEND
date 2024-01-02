@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AMCCompanyController;
 
 Route::apiResource('/amc_company', AMCCompanyController::class);
+Route::get('/amc_company_list', [AMCCompanyController::class, "dropdownList"]);
+
 Route::delete('/amc/company/{id}', [AMCCompanyController::class, "AMCCompany"]);
 Route::get('/amc_company-delete/{id}', [AMCCompanyController::class, "AMCCompanyDelete"]);
 Route::post('/amc/building/validate', [AMCCompanyController::class, "validateAMCCompany"]);
@@ -18,3 +20,5 @@ Route::put('/amc/company/contact/{id}', [AMCCompanyController::class, "AMCContac
 Route::put('/amc/company/geographic/{id}', [AMCCompanyController::class, "AMCGeographicUpdate"]);
 
 
+Route::post('/amc/company/document/{id}', [AMCCompanyController::class, "AMCDocumentUpdate"]);
+Route::delete('/amc/company/document/delete/{id}', [AMCCompanyController::class, "AMCDocumentDelete"]);

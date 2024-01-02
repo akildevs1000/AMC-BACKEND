@@ -41,7 +41,6 @@ include('member.php');
 include('community.php');
 
 
-
 // AMC Application
 include('amc_company.php');
 include('ticket.php');
@@ -53,3 +52,7 @@ include('amc_type.php');
 include('visit_type.php');
 include('service_call_type.php');
 include('priority.php');
+include('equipment.php');
+include('contract.php');
+include('quotation.php');
+include('invoice.php');

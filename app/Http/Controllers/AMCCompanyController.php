@@ -11,6 +11,7 @@ use App\Http\Requests\AMCCompany\GeographicRequest;
 use App\Http\Requests\AMCCompany\InfoUpdateRequest;
 use App\Models\Company;
 use App\Models\CompanyContact;
+use App\Models\CompanyDocument;
 use App\Models\Role;
 use App\Models\TradeLicense;
 use App\Models\User;
@@ -28,9 +29,19 @@ class AMCCompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function dropdownList()
+    {
+        return Company::where("account_type", "AMC")->get();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return Company::where("account_type", "AMC")->with(['users', 'company_contact', 'trade_license'])->paginate(request("per_page") ?? 10);
+        return Company::where("account_type", "AMC")->with(['users', 'company_contact', 'trade_license', 'company_documents'])->paginate(request("per_page") ?? 10);
     }
 
     public function validateAMCCompany(InfoRequest $request)
@@ -101,7 +112,7 @@ class AMCCompanyController extends Controller
     public function AMCCompanyInfoUpdate(InfoUpdateRequest $request, $id)
     {
         try {
-            
+
             $data = $request->validated();
 
             if (isset($request->logo)) {
@@ -156,6 +167,9 @@ class AMCCompanyController extends Controller
         }
     }
 
+
+
+
     public function AMCCompanyDelete($id)
     {
         $Company = Company::find($id);
@@ -176,5 +190,47 @@ class AMCCompanyController extends Controller
     public function AMCCompany($id)
     {
         return Company::with("users")->find($id);
+    }
+
+    public function AMCDocumentUpdate(Request $request, $id)
+    {
+        $arr = [];
+        foreach ($request->items as $key => $item) {
+
+            $file = $item["attachment"];
+            $ext = $file->getClientOriginalExtension();
+            $fileName = $key . time() . '.' . $ext;
+            $file->move(public_path('/company_documents'), $fileName);
+
+            $arr[] = [
+                "title" => $item["title"],
+                "company_id" => $id,
+                "attachment" => $fileName,
+                "date" => date("Y-m-d"),
+                "start_date" => $item["start_date"],
+                "expire_date" => $item["expire_date"],
+            ];
+        }
+        try {
+            return $this->response("Document has been updated", CompanyDocument::insert($arr), true);
+        } catch (\Throwable $th) {
+            $this->response("Record cannot update", $th, false);
+        }
+    }
+
+    public function AMCDocumentDelete($id)
+    {
+        $CompanyDocument = CompanyDocument::find($id);
+
+
+        try {
+            if ($CompanyDocument->delete()) {
+                return $this->response('Document successfully deleted.', null, true);
+            } else {
+                return $this->response('Document cannot delete.', null, false);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

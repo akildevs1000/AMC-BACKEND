@@ -14,9 +14,14 @@ class EquipmentCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function dropDownList()
+    {
+        return EquipmentCategory::orderBy("name", "asc")->get();
+    }
+
     public function index()
     {
-        return EquipmentCategory::orderBy("id", "desc")->paginate(request("per_page") ?? 10);
+        return EquipmentCategory::orderBy("id", "desc")->where("company_id",request("company_id"))->paginate(request("per_page") ?? 10);
     }
 
     /**

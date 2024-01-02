@@ -8,6 +8,16 @@ use App\Models\VisitType;
 
 class VisitTypeController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dropDownList()
+    {
+        return VisitType::orderBy("name", "asc")->get();
+    }
+
     public function index()
     {
         return VisitType::orderBy("id", "desc")->paginate(request("per_page") ?? 10);
