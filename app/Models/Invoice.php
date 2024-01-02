@@ -15,6 +15,16 @@ class Invoice extends Model
         "items" => "array"
     ];
 
+    /**
+     * Get all of the documents for the Invoice
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function documents()
+    {
+        return $this->hasMany(InvoiceDocument::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

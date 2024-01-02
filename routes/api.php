@@ -45,7 +45,6 @@ include('community.php');
 include('amc_company.php');
 include('ticket.php');
 
-
 include('business_type.php');
 include('equipment_category.php');
 include('amc_type.php');
@@ -56,3 +55,8 @@ include('equipment.php');
 include('contract.php');
 include('quotation.php');
 include('invoice.php');
+include('invoice_document.php');
+include('technician.php');
+
+
+

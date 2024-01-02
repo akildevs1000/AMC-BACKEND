@@ -18,6 +18,7 @@ class InvoiceController extends Controller
     {
         return Invoice::orderBy("id", "desc")
             ->where("company_id", request("company_id"))
+            ->with("documents")
             ->paginate(request("per_page") ?? 10);
     }
 
@@ -30,12 +31,14 @@ class InvoiceController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            if (Invoice::create($request->validated())) {
-                $quotation_id = $request->filled("quotation_id");
+            $created = Invoice::create($request->validated());
+            $update = null;
+            if ($created) {
+                $quotation_id = $request->quotation_id;
                 if ($quotation_id) {
-                    Quotation::where("id", $quotation_id)->update(["status" => "invoiced"]);
+                    $update = Quotation::where("id", $quotation_id)->update(["status" => "invoiced"]);
                 }
-                return $this->response('Invoice successfully created.', null, true);
+                return $this->response('Invoice successfully created.', $update, true);
             } else {
                 return $this->response('Invoice cannot create.', null, false);
             }
