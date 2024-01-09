@@ -50,6 +50,7 @@ include('equipment_category.php');
 include('amc_type.php');
 include('visit_type.php');
 include('service_call_type.php');
+include('service_call.php');
 include('priority.php');
 include('equipment.php');
 include('contract.php');

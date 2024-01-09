@@ -25,6 +25,15 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class);
     }
+    /**
+     * Get the priority that owns the ServiceCall
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function priority()
+    {
+        return $this->belongsTo(Priority::class,"prority_id");
+    }
 
     public function ticket_history()
     {

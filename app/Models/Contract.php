@@ -42,4 +42,14 @@ class Contract extends Model
     {
         return $this->belongsTo(ServiceCallType::class);
     }
+
+    /**
+     * Get the company that owns the Contract
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

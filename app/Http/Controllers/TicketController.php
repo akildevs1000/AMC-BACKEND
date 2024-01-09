@@ -21,7 +21,7 @@ class TicketController extends Controller
     {
         $model = Ticket::query();
         $model->orderBy("id", "desc");
-        $model->with(['company', 'user', 'ticket_history']);
+        $model->with(['company', 'user', 'ticket_history', 'priority']);
         return $model->paginate(request("per_page") ?? 10);
     }
 
@@ -30,7 +30,7 @@ class TicketController extends Controller
         $model = Ticket::query();
         $model->orderBy("id", "desc");
         $model->filters();
-        $model->with(['company', 'user', 'ticket_history']);
+        $model->with(['company', 'user', 'ticket_history', 'priority']);
         return $model->paginate(request("per_page") ?? 10);
     }
 

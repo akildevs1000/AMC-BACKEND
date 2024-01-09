@@ -13,6 +13,16 @@ class PriorityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function dropdownList()
+    {
+        return Priority::get(["id","name"]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return Priority::orderBy("id", "desc")->paginate(request("per_page") ?? 10);

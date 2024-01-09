@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Contract;
+namespace App\Http\Requests\ServiceCall;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,16 +24,10 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "date" => "required",
-            "start_date" => "required",
-            "expire_date" => "required",
-            "amc_type_id" => "required",
-            "visit_type_id" => "required",
-            // "service_call_type_id" => "null",
-            "value" => "required|min:3|max:200",
-            "attachment" => "nullable",
-            "status" => "required",
-            "company_id" => "required",
+            "schedule_start_date" => "required",
+            "schedule_end_date" => "required",
+            "contract_id" => "required",
+            "prority_id" => "required"
         ];
     }
 }

@@ -8,6 +8,16 @@ use App\Models\Contract;
 
 class ContractController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dropdownList($id)
+    {
+        return Contract::where("company_id", $id)->get();
+    }
+
     public function index()
     {
         return Contract::orderBy("id", "desc")
