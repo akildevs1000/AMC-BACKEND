@@ -57,6 +57,8 @@ include('quotation.php');
 include('invoice.php');
 include('invoice_document.php');
 include('technician.php');
+include('questions.php');
+
 
 
 

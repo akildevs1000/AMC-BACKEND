@@ -14,11 +14,23 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getLastInvoice()
+    {
+        $last = Invoice::orderBy("id", "desc")->first("id");
+        $last->date = date("d M Y");
+        return $last;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return Invoice::orderBy("id", "desc")
-            ->where("company_id", request("company_id"))
-            ->with("documents")
+            ->when(request()->filled("company_id"), fn ($q)  => $q->where("company_id", request("company_id")))
+            ->with(["documents", "company"])
             ->paginate(request("per_page") ?? 10);
     }
 
@@ -45,6 +57,11 @@ class InvoiceController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function show(Invoice $Invoice)
+    {
+        return $Invoice->load("company");
     }
 
     /**

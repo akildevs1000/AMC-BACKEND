@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Technician\StoreRequest;
 use App\Http\Requests\Technician\UpdateRequest;
 use App\Models\Technician;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class TechnicianController extends Controller
 {
@@ -75,5 +78,32 @@ class TechnicianController extends Controller
         } catch (\Throwable $th) {
             return $this->response('Technician cannot delete.', null, false);
         }
+    }
+
+    public function login(Request $request)
+    {
+        $user = Technician::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
+        return [
+            'token' => $user->createToken('myApp')->plainTextToken,
+            'user' => $user,
+        ];
+    }
+
+    public function me()
+    {
+        return ['user' => Auth::guard("technician")->user()];
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('technician')->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Logged out successfully']);
     }
 }

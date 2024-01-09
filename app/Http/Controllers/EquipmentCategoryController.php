@@ -19,9 +19,16 @@ class EquipmentCategoryController extends Controller
         return EquipmentCategory::orderBy("name", "asc")->get();
     }
 
+    public function equipmentCategoryWithQuestions()
+    {
+        return EquipmentCategory::orderBy("id", "desc")
+            ->whereHas("headings")
+            ->with("headings")->paginate(request("per_page") ?? 10);
+    }
+
     public function index()
     {
-        return EquipmentCategory::orderBy("id", "desc")->where("company_id",request("company_id"))->paginate(request("per_page") ?? 10);
+        return EquipmentCategory::orderBy("id", "desc")->paginate(request("per_page") ?? 10);
     }
 
     /**

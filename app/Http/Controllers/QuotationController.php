@@ -13,11 +13,29 @@ class QuotationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getLastQuotation()
+    {
+        $last = Quotation::orderBy("id", "desc")->first("id");
+        $last->date = date("d M Y");
+        return $last;
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return Quotation::orderBy("id", "desc")
             ->with("company")
             ->paginate(request("per_page") ?? 10);
+    }
+
+    public function show(Quotation $Quotation)
+    {
+        return $Quotation->load("company");
     }
 
     /**

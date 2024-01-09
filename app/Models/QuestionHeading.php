@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Sanctum\HasApiTokens;
 
-class Technician extends Model
+class QuestionHeading extends Model
 {
-    use HasFactory, HasApiTokens;
+    use HasFactory;
 
     protected $guarded = [];
 
-    protected $hidden = [
-        'password',
-    ];
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

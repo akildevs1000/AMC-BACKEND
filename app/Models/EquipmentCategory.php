@@ -12,4 +12,9 @@ class EquipmentCategory extends Model
     protected $guarded = [];
 
     protected $hidden = ["created_at","updated_at"];
+
+    public function headings()
+    {
+        return $this->hasMany(QuestionHeading::class)->with("questions");
+    }
 }

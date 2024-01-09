@@ -25,6 +25,16 @@ class Invoice extends Model
         return $this->hasMany(InvoiceDocument::class);
     }
 
+    /**
+     * Get the company that owns the Quotation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
