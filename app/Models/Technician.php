@@ -15,4 +15,14 @@ class Technician extends Model
     protected $hidden = [
         'password',
     ];
+
+    public function serviceCalls()
+    {
+        return $this->belongsToMany(ServiceCall::class)->with(["contract", "priority"])->withPivot('schedule_date');
+    }
+
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class)->with(["company","priority"])->withPivot('schedule_date');
+    }
 }

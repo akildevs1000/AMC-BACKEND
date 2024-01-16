@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Invoice;
+namespace App\Http\Requests\FormEntry;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,16 +24,13 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "items" => "required|array",
-
-            "sub_total" => "required",
-            "vat" => "required",
-            "total" => "required",
-            "lpo_number" => "required",
-            "description" => "required",
-            "company_id" => "required",
-            "quotation_id" => "nullable",
-            "date" => "nullable",
+            "work_id" => "required",
+            "work_type" => "nullable",
+            "summary" => "required",
+            "before_attachment" => "nullable",
+            "after_attachment" => "nullable",
+            "equipment_category_id" => "required",
+            "technician_id" => "required"
         ];
     }
 }

@@ -12,9 +12,39 @@ use Illuminate\Validation\ValidationException;
 
 class TechnicianController extends Controller
 {
+    public function dropDownList()
+    {
+        return Technician::orderBy("name", "asc")->get(["id", "name"]);
+    }
+
+
     public function index()
     {
-        return Technician::orderBy("id", "desc")->paginate(request("per_page") ?? 10);
+        return Technician::orderBy("id", "desc")->with(["serviceCalls"])->paginate(request("per_page") ?? 10);
+    }
+
+    public function getServiceCallsByTechnicianId($technicianId)
+    {
+        $technician = Technician::find($technicianId);
+
+        if (!$technician) {
+            return response()->json(['message' => 'Technician not found'], 404);
+        }
+
+
+        return $technician->serviceCalls()->orderBy("schedule_start_date", "asc")->paginate(request("per_page") ?? 10);
+    }
+
+    public function getTicketsByTechnicianId($technicianId)
+    {
+        $technician = Technician::find($technicianId);
+
+        if (!$technician) {
+            return response()->json(['message' => 'Technician not found'], 404);
+        }
+
+
+        return $technician->tickets()->orderBy("ticket_open_date_time", "desc")->paginate(request("per_page") ?? 10);
     }
 
     /**

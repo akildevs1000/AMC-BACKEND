@@ -29,7 +29,7 @@ class InvoiceController extends Controller
     public function index()
     {
         return Invoice::orderBy("id", "desc")
-            ->when(request()->filled("company_id"), fn ($q)  => $q->where("company_id", request("company_id")))
+            ->when(request()->filled("company_id"), fn ($q) => $q->where("company_id", request("company_id")))
             ->with(["documents", "company"])
             ->paginate(request("per_page") ?? 10);
     }

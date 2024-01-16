@@ -44,13 +44,13 @@ include('community.php');
 // AMC Application
 include('amc_company.php');
 include('ticket.php');
+include('amc.php');
 
 include('business_type.php');
 include('equipment_category.php');
 include('amc_type.php');
 include('visit_type.php');
 include('service_call_type.php');
-include('service_call.php');
 include('priority.php');
 include('equipment.php');
 include('contract.php');
@@ -59,7 +59,6 @@ include('invoice.php');
 include('invoice_document.php');
 include('technician.php');
 include('questions.php');
-
-
-
+include('form_entry.php');
+include('checklist.php');
 

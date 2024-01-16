@@ -31,7 +31,7 @@ class ContactRequest extends FormRequest
             "number" => "required|min:3|max:20",
             "position" => "required|min:3|max:20",
             "whatsapp" => "required|min:3|max:20",
-            "email" => "required|min:3|max:20|unique:users",
+            "email" => "required|min:3|max:100|unique:users",
             "company_id" => "required",
         ];
     }

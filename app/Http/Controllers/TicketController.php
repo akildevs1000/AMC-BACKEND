@@ -8,6 +8,7 @@ use App\Http\Requests\TicketHistory\StoreRequest as TicketHistoryStoreRequest;
 use App\Models\Ticket;
 use App\Models\TicketHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
@@ -21,7 +22,7 @@ class TicketController extends Controller
     {
         $model = Ticket::query();
         $model->orderBy("id", "desc");
-        $model->with(['company', 'user', 'ticket_history', 'priority']);
+        $model->with(['company', 'user', 'ticket_history', 'priority', 'technicians']);
         return $model->paginate(request("per_page") ?? 10);
     }
 
@@ -30,8 +31,13 @@ class TicketController extends Controller
         $model = Ticket::query();
         $model->orderBy("id", "desc");
         $model->filters();
-        $model->with(['company', 'user', 'ticket_history', 'priority']);
+        $model->with(['company', 'user', 'ticket_history', 'priority', 'technicians']);
         return $model->paginate(request("per_page") ?? 10);
+    }
+
+    public function show(Ticket $Ticket)
+    {
+        return $Ticket->load(['company', 'user', 'ticket_history', 'priority', 'technicians']);
     }
 
     /**
@@ -74,13 +80,28 @@ class TicketController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
+    public function ticketTechnicianAssigning(Request $request)
+    {
+        $sIds = $request->ticketIds;
+        $tIds = $request->technicianIds;
+        $schedule_date = $request->schedule_date;
+
+        $transformedData = collect($sIds)->crossJoin($tIds)
+            ->map(
+                fn ($item) => ["ticket_id" => $item[0], "technician_id" => $item[1], "schedule_date" => $schedule_date]
+            )->toArray();
+
+
+        DB::table('technician_ticket')->insert($transformedData);
+
+        return $transformedData;
+    }
+
+    public function update(Request $request, Ticket $Ticket)
+    {
+        return $Ticket->update(["status" => $request->status ?? "Open"]);
+    }
+
     public function updateTicket(UpdateRequest $request, $id)
     {
         $data = $request->validated();
@@ -90,7 +111,7 @@ class TicketController extends Controller
         }
 
         if ($data["status"] == "Close") {
-            $data["ticket_close_date_time"] = date("d M y H:i:s");
+            $data["ticket_close_date_time"] = date("Y-m-d H:i:s");
         }
 
         $response = Ticket::find($id)->update($data);

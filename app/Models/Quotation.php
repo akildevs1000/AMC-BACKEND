@@ -36,4 +36,9 @@ class Quotation extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function getDateAttribute($value){
+
+        return date("d M y",strtotime($value));
+    }
 }

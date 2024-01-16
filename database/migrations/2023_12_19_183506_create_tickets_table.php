@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string("title")->nullable();
             $table->string("description")->nullable();
-            $table->string("prority")->nullable();
             $table->string("status")->nullable();
             $table->string("ticket_open_date_time")->nullable();
             $table->string("ticket_close_date_time")->nullable();
             $table->string("attachment")->nullable();
+            $table->unsignedBigInteger("priority_id")->default(0);
             $table->unsignedBigInteger("user_id")->default(0);
             $table->unsignedBigInteger("branch_id")->default(0);
             $table->unsignedBigInteger("company_id")->default(0);

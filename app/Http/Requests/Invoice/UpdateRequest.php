@@ -28,6 +28,7 @@ class UpdateRequest extends FormRequest
             "sub_total" => "required",
             "vat" => "required",
             "total" => "required",
+            "lpo_number" => "required",
             "description" => "required",
             "status" => "required",
             "company_id" => "required",

@@ -28,9 +28,14 @@ class ServiceCall extends Model
      */
     public function priority()
     {
-        return $this->belongsTo(Priority::class,"prority_id");
+        return $this->belongsTo(Priority::class, "prority_id");
     }
-    
+
+    public function technicians()
+    {
+        return $this->belongsToMany(Technician::class)->withPivot('schedule_date');
+    }
+
 
     protected static function boot()
     {
@@ -40,5 +45,10 @@ class ServiceCall extends Model
             $serviceCall->status = "pending";
             $serviceCall->date = now();
         });
+    }
+
+    public function getScheduleStartDateAttribute($value)
+    {
+        return date("M", strtotime($value));
     }
 }

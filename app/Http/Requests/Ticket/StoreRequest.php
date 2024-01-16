@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         return [
             "title" => "required|min:3|max:30",
             "description" => "nullable|min:3|max:500",
-            "prority" => "required",
+            "priority_id" => "required",
             "status" => "nullable",
             "ticket_open_date_time" => "nullable",
             "ticket_close_date_time" => "nullable",

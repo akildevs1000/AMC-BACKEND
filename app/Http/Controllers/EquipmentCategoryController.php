@@ -23,7 +23,7 @@ class EquipmentCategoryController extends Controller
     {
         return EquipmentCategory::orderBy("id", "desc")
             ->whereHas("headings")
-            ->with("headings")->paginate(request("per_page") ?? 10);
+            ->with("headings")->get();
     }
 
     public function index()

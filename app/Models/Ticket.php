@@ -32,12 +32,17 @@ class Ticket extends Model
      */
     public function priority()
     {
-        return $this->belongsTo(Priority::class,"prority_id");
+        return $this->belongsTo(Priority::class);
     }
 
     public function ticket_history()
     {
         return $this->hasMany(TicketHistory::class)->latest();
+    }
+
+    public function technicians()
+    {
+        return $this->belongsToMany(Technician::class)->withPivot('schedule_date');
     }
 
     public static function processAttachment($attachment = null)
@@ -51,6 +56,18 @@ class Ticket extends Model
         return null;
     }
 
+    
+    public function getTicketOpenDateTimeAttribute($value)
+    {
+        return date("d M y H:i:s",strtotime($value));
+    }
+
+    public function getTicketCloseDateTimeAttribute($value)
+    {
+        if(!$value) return;
+        return date("d M y H:i:s",strtotime($value));
+    }
+
     public function getAttachmentAttribute($value)
     {
         if (!$value) return null;
@@ -62,7 +79,7 @@ class Ticket extends Model
         $query->when(request()->filled("title"), fn ($q) => $q->where('title', 'ILIKE', "%" . request("title") . "%"));
 
         $query->when(request()->filled("id"), fn ($q) => $q->where("id", request("id")));
-        $query->when(request()->filled("prority"), fn ($q) => $q->where("prority", request("prority")));
+        $query->when(request()->filled("priority_id"), fn ($q) => $q->where("priority_id", request("priority_id")));
         $query->when(request()->filled("status"), fn ($q) => $q->where("status", request("status")));
         $query->when(request()->filled("user_id"), fn ($q) => $q->where("user_id", request("user_id")));
         $query->when(request()->filled("company_id"), fn ($q) => $q->where("company_id", request("company_id")));

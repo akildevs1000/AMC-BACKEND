@@ -46,4 +46,9 @@ class Invoice extends Model
             $invoice->date = date("Y-m-d H:i:s");
         });
     }
+
+    public function getDateAttribute($value){
+
+        return date("d M y",strtotime($value));
+    }
 }

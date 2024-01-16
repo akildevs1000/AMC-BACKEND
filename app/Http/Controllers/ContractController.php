@@ -36,12 +36,15 @@ class ContractController extends Controller
     {
 
         $data = $request->validated();
-        $data["attachment"] = Contract::processAttachment($request->attachment);
+        
+        if ($request->attachment) {
+            $data["attachment"] = Contract::processAttachment($request->attachment);
+        }
         $response = Contract::create($data);
 
         try {
             if ($response) {
-                return $this->response('Contract successfully created.', null, true);
+                return $this->response('Contract successfully created.', $response, true);
             } else {
                 return $this->response('Contract cannot created.', null, false);
             }

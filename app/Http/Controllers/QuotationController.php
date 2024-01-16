@@ -29,6 +29,7 @@ class QuotationController extends Controller
     public function index()
     {
         return Quotation::orderBy("id", "desc")
+            ->when(request()->input("company_id"), fn($q) => $q->where("company_id",request()->input("company_id")))
             ->with("company")
             ->paginate(request("per_page") ?? 10);
     }
