@@ -30,7 +30,6 @@ class User extends Authenticatable
         'is_master',
         'first_login',
         'reset_password_code',
-        'employee_role_id',
         'email_verified_at',
         'enable_whatsapp_otp',
         'number',
@@ -80,25 +79,11 @@ class User extends Authenticatable
         return $this->hasOne(CompanyBranch::class, 'user_id');
     }
 
-    public function employeeData()
-    {
-        return $this->belongsTo(Employee::class, 'user_id', 'id');
-    }
-    public function employee()
-    {
-        return $this->hasOne(Employee::class);
-    }
-
     public function role()
     {
         return $this->belongsTo(Role::class, "role_id")->withDefault([
             "name" => "---",
         ]);
-    }
-
-    public function employee_role()
-    {
-        return $this->belongsTo(Role::class, "employee_role_id");
     }
 
     // public function role()
