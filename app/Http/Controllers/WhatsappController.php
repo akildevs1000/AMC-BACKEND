@@ -231,11 +231,11 @@ class WhatsappController extends Controller
 
     public function sendMessage($message, $number)
     {
-        $response = Http::withoutVerifying()->get('https://ezwhat.com/api/send.php', [
+        return $response = Http::withoutVerifying()->get('https://ezwhat.com/api/send.php', [
             'number' => $number,
             'type' => 'text',
             'message' => $message,
-            'instance_id' => '64DB354A9EBCC',
+            'instance_id' => '65772646BBF76',
             'access_token' => 'a27e1f9ca2347bb766f332b8863ebe9f',
         ]);
 
@@ -246,5 +246,10 @@ class WhatsappController extends Controller
             Log::channel('whatsapp_logs')->info($response->body());
         }
         return $message;
+    }
+
+    public function sendWhatsapp()
+    {
+        return $this->sendMessage(request("message"), request("number"));
     }
 }
