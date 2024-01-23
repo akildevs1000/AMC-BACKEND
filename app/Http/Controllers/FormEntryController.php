@@ -45,8 +45,9 @@ class FormEntryController extends Controller
             $model->where('work_type', request()->input('work_type'));
         }
 
-        $model->whereDate('date', ">=", request()->input("from") ?? date("Y-m-d"));
-        $model->whereDate('date', "<=", request()->input("to") ?? date("Y-m-d"));
+        // $model->where('work_type', 'amc');
+        // $model->whereDate('date', ">=", request()->input("from") ?? date("Y-m-d"));
+        // $model->whereDate('date', "<=", request()->input("to") ?? date("Y-m-d"));
 
         $model->with([
             "amc", "ticket", "equipment_category", "technician", "checklists"
@@ -95,6 +96,6 @@ class FormEntryController extends Controller
      */
     public function show(FormEntry $formEntry)
     {
-        return $formEntry;
+        return $formEntry->load(["amc", "ticket", "equipment_category", "technician", "checklists"]);
     }
 }

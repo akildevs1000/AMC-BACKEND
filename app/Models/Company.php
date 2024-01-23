@@ -33,7 +33,7 @@ class Company extends Model
 
     public function contact()
     {
-        return $this->hasOne(CompanyContact::class);
+        return $this->hasOne(User::class);
     }
 
     public function user()
@@ -49,6 +49,11 @@ class Company extends Model
     public function trade_license()
     {
         return $this->hasOne(TradeLicense::class);
+    }
+
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
     }
 
     public function shift()

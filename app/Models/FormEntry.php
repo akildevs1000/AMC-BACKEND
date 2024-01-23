@@ -33,12 +33,20 @@ class FormEntry extends Model
 
     public function amc()
     {
-        return $this->belongsTo(ServiceCall::class, "work_id")->with("contract");
+        return $this->belongsTo(ServiceCall::class, "work_id")->with([
+            "contract" => fn ($q) =>
+            $q->with([
+                "company" => fn ($q) => $q->with("trade_license")
+            ])
+        ]);
     }
 
     public function ticket()
     {
-        return $this->belongsTo(Ticket::class, "work_id")->with("company");
+        return $this->belongsTo(Ticket::class, "work_id")
+            ->with([
+                "company" => fn ($q) => $q->with(["trade_license","contract","contact"])
+            ]);
     }
 
 
@@ -77,5 +85,10 @@ class FormEntry extends Model
     {
         if (!$value) return null;
         return asset('after_attachment/' . $value);
+    }
+
+    public function getDateAttribute($value)
+    {
+        return date("d M Y", strtotime($value));
     }
 }

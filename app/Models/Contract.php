@@ -11,6 +11,9 @@ class Contract extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['show_start_date', 'show_expire_date'];
+
+
     public static function processAttachment($attachment = null)
     {
         if ($attachment) {
@@ -51,5 +54,15 @@ class Contract extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function getShowStartDateAttribute(): string
+    {
+        return date('d M Y', strtotime($this->start_date));
+    }
+
+    public function getShowExpireDateAttribute(): string
+    {
+        return date('d M Y', strtotime($this->expire_date));
     }
 }

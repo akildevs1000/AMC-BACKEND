@@ -32,7 +32,10 @@ class TechnicianController extends Controller
         }
 
 
-        return $technician->serviceCalls()->orderBy("schedule_start_date", "asc")->paginate(request("per_page") ?? 10);
+        return $technician->serviceCalls()
+            ->when(request()->input("status"), fn ($q) => $q->where("status", request("status")))
+            ->orderBy("schedule_start_date", "asc")
+            ->paginate(request("per_page") ?? 10);
     }
 
     public function getTicketsByTechnicianId($technicianId)
@@ -43,8 +46,10 @@ class TechnicianController extends Controller
             return response()->json(['message' => 'Technician not found'], 404);
         }
 
-
-        return $technician->tickets()->orderBy("ticket_open_date_time", "desc")->paginate(request("per_page") ?? 10);
+        return $technician->tickets()
+            ->when(request()->input("status"), fn ($q) => $q->where("status", request("status")))
+            ->orderBy("ticket_open_date_time", "desc")
+            ->paginate(request("per_page") ?? 10);
     }
 
     /**

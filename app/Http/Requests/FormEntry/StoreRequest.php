@@ -30,7 +30,11 @@ class StoreRequest extends FormRequest
             "before_attachment" => "nullable",
             "after_attachment" => "nullable",
             "equipment_category_id" => "required",
-            "technician_id" => "required"
+            "technician_id" => "required",
+
+            "actual_problem" => "nullable",
+            "action_taken" => "nullable",
+            "description" => "nullable",
         ];
     }
 }

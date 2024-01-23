@@ -11,3 +11,8 @@ Route::get('/technician_list', [TechnicianController::class, "dropDownList"]);
 Route::get('/get_service_calls_by_technician_id/{id}', [TechnicianController::class, "getServiceCallsByTechnicianId"]);
 Route::get('/get_tickets_by_technician_id/{id}', [TechnicianController::class, "getTicketsByTechnicianId"]);
 
+
+
+Route::get('/get_jobs_by_technician_id/{id}', [TechnicianController::class, "getJobsByTechnicianId"]);
+
+
