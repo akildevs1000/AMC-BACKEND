@@ -51,7 +51,6 @@ class AMCCompanyController extends Controller
         try {
             $data = $request->validated();
 
-            $data["no_branch"] = 0;
             $data["max_employee"] = 0;
             $data["max_devices"] = 0;
             $data["company_code"] = Company::max('id') + 1;
