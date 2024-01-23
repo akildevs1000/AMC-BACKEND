@@ -51,7 +51,7 @@ class TicketController extends Controller
 
         $data = $request->validated();
 
-        $data["status"] = "Open";
+        $data["status"] = "Pending";
         $data["ticket_open_date_time"] = date("Y-m-d H:i:s");
 
         if ($request->attachment) {
