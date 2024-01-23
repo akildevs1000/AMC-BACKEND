@@ -230,29 +230,6 @@ class AuthController extends Controller
     public function getUserType($user)
     {
         if ($user->user_type === "company" || $user->user_type === "customer")  return $user->user_type;
-
-
-        $user->load(["employee" => function ($q) {
-            $q->select(
-                "id",
-                "first_name",
-                "last_name",
-                "profile_picture",
-                "employee_id",
-                "system_user_id",
-                "joining_date",
-                "user_id",
-                "overtime",
-                "display_name",
-                "display_name",
-                "branch_id",
-                "leave_group_id",
-                "reporting_manager_id",
-            );
-
-            $q->withOut(["user", "department", "designation", "sub_department", "branch"]);
-        }]);
-        return "employee";
     }
 
     public function logout(Request $request)
@@ -266,7 +243,7 @@ class AuthController extends Controller
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
-        } 
+        }
         // else if ($user->company_id > 0 && $user->company->expiry < now()) {
         //     throw ValidationException::withMessages([
         //         'email' => ['Subscription has been expired.'],
