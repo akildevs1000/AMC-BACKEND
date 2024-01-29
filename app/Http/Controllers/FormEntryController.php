@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FormEntry\StoreRequest;
 use App\Models\FormEntry;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FormEntryController extends Controller
 {
@@ -97,5 +98,14 @@ class FormEntryController extends Controller
     public function show(FormEntry $formEntry)
     {
         return $formEntry->load(["amc", "ticket", "equipment_category", "technician", "checklists"]);
+    }
+
+    public function preview($id)
+    {
+        $data = FormEntry::with(["equipment_category", "technician", "checklists"])->find($id);
+
+        $data->load($data->work_type == 'ticket' ? 'ticket' : 'amc');
+
+        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.report', compact("data"))->stream();
     }
 }
