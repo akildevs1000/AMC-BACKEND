@@ -76,6 +76,10 @@ class FormEntryController extends Controller
         if ($request->after_attachment) {
             $data["after_attachment"] = FormEntry::processAttachment($request->after_attachment, 'after_attachment');
         }
+
+        if ($request->sign) {
+            $data["sign"] = FormEntry::processAttachment($request->sign, 'sign');
+        }
         $response = FormEntry::create($data);
 
         try {

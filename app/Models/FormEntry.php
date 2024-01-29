@@ -87,6 +87,12 @@ class FormEntry extends Model
         return asset('after_attachment/' . $value);
     }
 
+    public function getSignAttribute($value)
+    {
+        if (!$value) return null;
+        return asset('sign/' . $value);
+    }
+
     public function getDateAttribute($value)
     {
         return date("d M Y", strtotime($value));
