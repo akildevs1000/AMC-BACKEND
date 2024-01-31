@@ -70,17 +70,12 @@ class FormEntryController extends Controller
         $data = $request->validated();
 
         if ($request->before_attachment) {
-
-            $ext = $request->before_attachment->getClientOriginalExtension();
-            $fileName = time() . '.' . $ext;
-            $data["before_attachment"] = $request->before_attachment->move(public_path('/' . "before_attachment"), $fileName);
-
-            // $data["before_attachment"] = FormEntry::processAttachment($request->before_attachment, 'before_attachment');
+            $data["before_attachment"] = FormEntry::processAttachment($request->before_attachment, 'before_attachment');
         }
 
-        // if ($request->after_attachment) {
-        //     $data["after_attachment"] = FormEntry::processAttachment($request->after_attachment, 'after_attachment');
-        // }
+        if ($request->after_attachment) {
+            $data["after_attachment"] = FormEntry::processAttachment($request->after_attachment, 'after_attachment');
+        }
 
         // if ($request->sign) {
         //     $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', request('sign')));
@@ -93,7 +88,6 @@ class FormEntryController extends Controller
 
         //     $data["sign"] = $imageName;
         // }
-        $data["sign"]= "sdfsdf";
         $response = FormEntry::create($data);
 
         try {
