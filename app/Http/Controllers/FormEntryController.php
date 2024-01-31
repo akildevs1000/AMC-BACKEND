@@ -70,7 +70,12 @@ class FormEntryController extends Controller
         $data = $request->validated();
 
         if ($request->before_attachment) {
-            $data["before_attachment"] = FormEntry::processAttachment($request->before_attachment, 'before_attachment');
+
+            $ext = $request->before_attachment->getClientOriginalExtension();
+            $fileName = time() . '.' . $ext;
+            $data["before_attachment"] = $request->before_attachment->move(public_path('/' . "before_attachment"), $fileName);
+
+            // $data["before_attachment"] = FormEntry::processAttachment($request->before_attachment, 'before_attachment');
         }
 
         if ($request->after_attachment) {
