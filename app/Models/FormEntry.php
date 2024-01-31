@@ -90,6 +90,7 @@ class FormEntry extends Model
     public function getSignAttribute($value)
     {
         if (!$value) return null;
+        return "https://amcbackend.mytime2cloud.com/sign/" . $value;
         return asset('sign/' . $value);
     }
 

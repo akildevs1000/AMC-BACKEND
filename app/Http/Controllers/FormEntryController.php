@@ -112,12 +112,17 @@ class FormEntryController extends Controller
         return $formEntry->load(["amc", "ticket", "equipment_category", "technician", "checklists"]);
     }
 
-    public function preview($id)
+    public function ticketPrint($id)
     {
-        $data = FormEntry::with(["equipment_category", "technician", "checklists"])->find($id);
+        $item = FormEntry::with(["ticket", "equipment_category", "technician", "checklists"])->find($id);
 
-        $data->load($data->work_type == 'ticket' ? 'ticket' : 'amc');
+        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.ticket.report', compact("item"))->stream();
+    }
 
-        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.report', compact("data"))->stream();
+    public function amcPrint($id)
+    {
+        $item = FormEntry::with(["amc", "equipment_category", "technician", "checklists"])->find($id);
+        
+        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.amc.report', compact("item"))->stream();
     }
 }

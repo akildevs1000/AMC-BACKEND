@@ -6,4 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('/form_entry', FormEntryController::class);
 
 
-Route::get('/form_entry/preview/{id}', [FormEntryController::class, "preview"]);
+Route::get('/form_entry/ticket/print/{id}', [FormEntryController::class, "ticketPrint"]);
+Route::get('/form_entry/amc/print/{id}', [FormEntryController::class, "amcPrint"]);
+
+
