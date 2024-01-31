@@ -77,6 +77,8 @@ class FormEntryController extends Controller
             $data["after_attachment"] = FormEntry::processAttachment($request->after_attachment, 'after_attachment');
         }
 
+        $data["sign"] = "dsfsfdsf";
+
         // if ($request->sign) {
         //     $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', request('sign')));
         //     $imageName = time() . ".png";
