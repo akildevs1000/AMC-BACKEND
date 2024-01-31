@@ -93,6 +93,7 @@ class FormEntryController extends Controller
 
         //     $data["sign"] = $imageName;
         // }
+        $data["sign"]= "sdfsdf";
         $response = FormEntry::create($data);
 
         try {
