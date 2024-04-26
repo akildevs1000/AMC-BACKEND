@@ -21,7 +21,9 @@ class EquipmentCategoryController extends Controller
 
     public function equipmentCategoryWithQuestions()
     {
-        return $origin = request()->header('Origin');
+        return [
+            "origin" => request()->header('Origin')
+        ];
 
 
         $model = EquipmentCategory::orderBy("id", "desc")
