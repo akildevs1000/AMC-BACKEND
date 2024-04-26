@@ -21,9 +21,17 @@ class EquipmentCategoryController extends Controller
 
     public function equipmentCategoryWithQuestions()
     {
-        return EquipmentCategory::orderBy("id", "desc")
+        $domain = request()->getHost(); // Get the domain from the request
+
+        $model = EquipmentCategory::orderBy("id", "desc")
             ->whereHas("headings")
-            ->with("headings")->get();
+            ->with("headings");
+
+        if ($domain === 'amccustomer.mytime2cloud.com') {
+            return $model->paginate(request("per_page") ?? 10);
+        }
+
+        return $model->get();
     }
 
     public function index()
