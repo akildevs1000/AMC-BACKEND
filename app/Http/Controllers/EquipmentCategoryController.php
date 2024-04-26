@@ -21,16 +21,15 @@ class EquipmentCategoryController extends Controller
 
     public function equipmentCategoryWithQuestions()
     {
-        return [
-            "origin" => request()->header('Origin')
-        ];
-
-
         $model = EquipmentCategory::orderBy("id", "desc")
             ->whereHas("headings")
             ->with("headings");
 
-        return $model->paginate(request("per_page") ?? 10);
+        if (request()->header('Origin') === 'https://amc.mytime2cloud.com') {
+            return $model->paginate(request("per_page") ?? 10);
+        }
+
+        return $model->get();
     }
 
     public function equipmentCategoryWithQuestionsList()
