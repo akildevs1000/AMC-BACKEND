@@ -27,6 +27,8 @@ class EquipmentCategoryController extends Controller
             ->whereHas("headings")
             ->with("headings");
 
+        return $model->paginate(request("per_page") ?? 10);
+
         if ($domain === 'amccustomer.mytime2cloud.com') {
             return $model->paginate(request("per_page") ?? 10);
         }
