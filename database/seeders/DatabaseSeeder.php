@@ -22,11 +22,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        // Production
-        $this->call([MasterSeeder::class]);
         $this->call([PermissionSeeder::class]);
         $this->call([RoleSeeder::class]);
-        $this->call([CompSeederTable::class]);
     }
 }

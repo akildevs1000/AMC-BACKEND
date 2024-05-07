@@ -31,8 +31,8 @@ class registerAdmin extends Command
     {
         User::create([
             "name" => "ignore",
-            "email" => "demo@gmail.com",
-            "password" => Hash::make("secret")
+            "email" => "admin",
+            "password" => Hash::make("admin")
         ]);
         return "Admin Created";
     }
