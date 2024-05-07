@@ -26,17 +26,7 @@ class DatabaseSeeder extends Seeder
         // Production
         $this->call([MasterSeeder::class]);
         $this->call([PermissionSeeder::class]);
-        $this->call([ModuleSeeder::class]);
-        $this->call([ShiftTypeTableSeeder::class]);
-        $this->call([DeviceStatusSeeder::class]);
-
-        // local
-        if (env('APP_ENV') == 'local') {
-            $this->call([RoleSeeder::class]);
-            $this->call([DepartmentTableSeeder::class]);
-            $this->call([DesignationsTableSeeder::class]);
-            $this->call([EmployeeSeederTable::class]);
-            $this->call([CompSeederTable::class]);
-        }
+        $this->call([RoleSeeder::class]);
+        $this->call([CompSeederTable::class]);
     }
 }
