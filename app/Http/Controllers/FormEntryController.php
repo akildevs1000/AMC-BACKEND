@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FormEntry\StoreRequest;
 use App\Models\FormEntry;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
 class FormEntryController extends Controller
 {
@@ -67,16 +68,9 @@ class FormEntryController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        // FormEntry::truncate();
+
         $data = $request->validated();
-
-        if ($request->before_attachment) {
-            $data["before_attachment"] = FormEntry::processAttachment($request->before_attachment, 'before_attachment');
-        }
-
-        if ($request->after_attachment) {
-            $data["after_attachment"] = FormEntry::processAttachment($request->after_attachment, 'after_attachment');
-        }
-
 
         if ($request->sign) {
             $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', request('sign')));
@@ -113,6 +107,32 @@ class FormEntryController extends Controller
         return $formEntry->load(["amc", "ticket", "equipment_category", "technician", "checklists"]);
     }
 
+    public function customerUpdate(Request $request, $id)
+    {
+        $data = [];
+        if ($request->customer_sign) {
+            $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', request('customer_sign')));
+            $imageName = time() . ".png";
+            $publicDirectory = public_path("customer_sign");
+            if (!file_exists($publicDirectory)) {
+                mkdir($publicDirectory);
+            }
+            file_put_contents($publicDirectory . '/' . $imageName, $base64Image);
+
+            $data["customer_sign"] = $imageName;
+        }
+
+        $data["customer_name"] = $request->customer_name;
+        $data["customer_phone"] = $request->customer_phone;
+
+        try {
+            $response = FormEntry::where("id", $id)->update($data);
+            return $this->response('Form Entry has been updated.', $response, true);
+        } catch (\Exception $e) {
+            return $this->response('Form Entry cannot created. Error: ' . $e->getMessage(), null, false);
+        }
+    }
+
     public function ticketPrint($id)
     {
         $item = FormEntry::with(["ticket", "equipment_category", "technician", "checklists"])->find($id);
@@ -123,7 +143,7 @@ class FormEntryController extends Controller
     public function amcPrint($id)
     {
         $item = FormEntry::with(["amc", "equipment_category", "technician", "checklists"])->find($id);
-        
+
         return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.amc.report', compact("item"))->stream();
     }
 }

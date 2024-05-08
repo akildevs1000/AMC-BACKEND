@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Checklist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ChecklistController extends Controller
 {
@@ -25,26 +27,33 @@ class ChecklistController extends Controller
      */
     public function store(Request $request)
     {
-        $arr = [];
+        foreach ($request->attachments as $aKey => $attachment) {
 
-        foreach ($request->headings as $hKey => $heading) {
+            $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $attachment['attachment']));
+            $publicDirectory = public_path("checklist/" . $request->form_entry_id);
 
-            foreach ($heading as $key => $item) {
-
-                $arr[] = [
-                    "form_entry_id" => $item["form_entry_id"],
-                    "question_id" => $item["question_id"],
-                    "remarks" => $item["remarks"],
-                    "selectedOption" => $item["selectedOption"],
-                    "attachment" => Checklist::processAttachment($item, $hKey . $key),
-                ];
+            if (!file_exists($publicDirectory)) {
+                mkdir($publicDirectory, 0777, true);
             }
+
+            file_put_contents($publicDirectory . '/' . $attachment['name'], $base64Image);
         }
-        // D:\projects\AMC\web-app\AMC-BACKEND\public\checklist
+
+        $arr = [
+            "form_entry_id" => $request->form_entry_id,
+            "checklist" => $request->checklist,
+        ];
+
+        // Checklist::truncate();
+
         try {
-            return $this->response("Checklist has been added", Checklist::insert($arr), true);
-        } catch (\Throwable $th) {
-            $this->response("Record cannot update", $th, false);
+            $model = Checklist::query();
+            $model->where("form_entry_id", $request->form_entry_id);
+            $model->delete();
+            $created = $model->create($arr);
+            return $this->response("Checklist has been added", $created, true);
+        } catch (\Exception $e) {
+            return $this->response("Record cannot update. Error: " . $e->getMessage(), null, false, 500);
         }
     }
 

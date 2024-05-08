@@ -62,7 +62,7 @@ class TechnicianController extends Controller
     {
         $data = $request->validated();
         $data["password"] = Hash::make($data["password"]);
-        $response = Technician::create($request->validated());
+        $response = Technician::create($data);
 
         try {
             if ($response) {

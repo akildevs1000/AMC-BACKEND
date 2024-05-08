@@ -111,7 +111,7 @@ class EmployeeController extends Controller
                 "user_type" => "employee",
                 "name" => "null",
                 "email" => $request->email,
-                "password" => Hash::make("secret"),
+                "password" => Hash::make("password"),
                 "company_id" => $data["company_id"],
             ]);
 
@@ -801,7 +801,7 @@ class EmployeeController extends Controller
         $arr["role_id"] = $request->employee_role_id ?? 0;
 
         if ($request->password != '') {
-            $arr['password'] = Hash::make($request->password ?? "secret");
+            $arr['password'] = Hash::make($request->password ?? "password");
         }
 
         try {
@@ -962,7 +962,7 @@ class EmployeeController extends Controller
                         "user_type" => "employee",
                         'name' => 'null',
                         'email' => $data['email'],
-                        'password' => Hash::make('secret'),
+                        'password' => Hash::make('password'),
                         'company_id' => $this->company_id,
                     ]);
 

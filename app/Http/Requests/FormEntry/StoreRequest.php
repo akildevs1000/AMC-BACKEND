@@ -35,8 +35,13 @@ class StoreRequest extends FormRequest
             "actual_problem" => "nullable",
             "action_taken" => "nullable",
             "description" => "nullable",
-
             "sign" => "nullable",
+            
+            "defective_area" => "nullable",
+            "customer_name" => "nullable",
+            "customer_phone" => "nullable",
+            "customer_sign" => "nullable",
+
         ];
     }
 }

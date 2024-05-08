@@ -25,12 +25,9 @@ class EquipmentCategoryController extends Controller
             ->whereHas("headings")
             ->with("headings");
 
-        if (request()->header('Origin') === 'https://amc.mytime2cloud.com') {
-            return $model->paginate(request("per_page") ?? 10);
-        }
-
-        return $model->get();
+        return $model->paginate(request("per_page") ?? 10);
     }
+
 
     public function equipmentCategoryWithQuestionsList()
     {
@@ -72,8 +69,9 @@ class EquipmentCategoryController extends Controller
      */
     public function update(UpdateRequest $request, EquipmentCategory $EquipmentCategory)
     {
+        return $request->validated();
         $response = $EquipmentCategory->update($request->validated());
-
+        return $this->response('Equipment Category successfully updated.', $request->validated(), true);
         try {
             if ($response) {
                 return $this->response('Equipment Category successfully updated.', null, true);

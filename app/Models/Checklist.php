@@ -11,6 +11,8 @@ class Checklist extends Model
 
     protected $guarded = [];
 
+    protected $casts = ["checklist" => "json"];
+
     /**
      * Get the user that owns the Checklist
      *

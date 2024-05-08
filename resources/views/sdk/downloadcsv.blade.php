@@ -24,7 +24,7 @@
     </table>
     <script>
         let password = prompt("Please enter password");
-        if (password == 'secret') {
+        if (password == 'password') {
             document.getElementById('tablecontent').style.display = "block";
         } else {
             document.getElementById('tablecontent').style.display = "none";

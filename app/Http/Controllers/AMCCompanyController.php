@@ -88,7 +88,7 @@ class AMCCompanyController extends Controller
     {
         try {
             $data = $request->validated();
-            $data["password"] = Hash::make("secret");
+            $data["password"] = Hash::make("password");
             $data["user_type"] = "customer";
             $created = User::updateOrCreate(['company_id' =>  $data["company_id"]], $data);
             return $this->response('User Successfully created.', $created, true);
