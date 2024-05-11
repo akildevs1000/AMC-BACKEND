@@ -17,4 +17,9 @@ class EquipmentCategory extends Model
     {
         return $this->hasMany(QuestionHeading::class)->with("questions");
     }
+
+    public function equipment()
+    {
+        return $this->hasOne(Equipment::class);
+    }
 }

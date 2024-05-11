@@ -14,9 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('form_entries', function (Blueprint $table) {
-            $table->string("customer_name")->nullable();
-            $table->string("customer_phone")->nullable();
-            $table->string("customer_sign")->nullable();
+            $table->string("customer_note")->nullable();
         });
     }
 
@@ -28,9 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('form_entries', function (Blueprint $table) {
-            $table->dropColumn('customer_name');
-            $table->dropColumn('customer_phone');
-            $table->dropColumn('customer_sign');
+            $table->dropColumn('customer_note');
         });
     }
 };

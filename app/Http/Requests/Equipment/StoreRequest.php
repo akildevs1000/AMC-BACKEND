@@ -25,15 +25,29 @@ class StoreRequest extends FormRequest
     {
         return [
             "equipment_category_id" => "required",
-            "name" => "required|min:2|max:20",
-            "brand_name" => "required|min:2|max:20",
-            "model_number" => "required|min:2|max:30",
-            "specification" => "required|min:2|max:50",
-            "other" => "required|min:2|max:200",
-            "software_version" => "required|min:2|max:50",
-            "qty" => "required|min:2|max:50",
-            "remarks" => "required|min:2|max:200",
             "company_id" => "required",
+
+
+            "recorder_brand" => "required|min:3|max:50",
+            "recorder_qty" => "required|min:1|max:50",
+            "recorder_capacity" => "nullable|min:3|max:50",
+
+            "work_station" => "required|min:3|max:50",
+            "work_station_qty" => "required|min:1|max:50",
+
+            "camera" => "required|min:3|max:50",
+            "camera_qty" => "required|min:1|max:50",
+
+            "monitor" => "required|min:3|max:50",
+            "monitor_qty" => "required|min:1|max:50",
+
+            "ups" => "required|min:3|max:50",
+            "ups_qty" => "required|min:1|max:50",
+            "ups_specs" => "nullable|min:3|max:50",
+
+            "network" => "required|min:3|max:50",
+            "network_qty" => "required|min:1|max:50",
+            "network_specs" => "nullable|min:3|max:50",
         ];
     }
 }

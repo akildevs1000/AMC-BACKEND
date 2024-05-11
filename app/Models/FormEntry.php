@@ -36,7 +36,7 @@ class FormEntry extends Model
         return $this->belongsTo(ServiceCall::class, "work_id")->with([
             "contract" => fn ($q) =>
             $q->with([
-                "company" => fn ($q) => $q->with("trade_license")
+                "company" => fn ($q) => $q->with(["trade_license", "contact"])
             ])
         ]);
     }
@@ -45,14 +45,14 @@ class FormEntry extends Model
     {
         return $this->belongsTo(Ticket::class, "work_id")
             ->with([
-                "company" => fn ($q) => $q->with(["trade_license","contract","contact"])
+                "company" => fn ($q) => $q->with(["trade_license", "contract", "contact"])
             ]);
     }
 
 
     public function equipment_category()
     {
-        return $this->belongsTo(EquipmentCategory::class);
+        return $this->belongsTo(EquipmentCategory::class)->with("equipment");
     }
 
     protected static function boot()
@@ -90,8 +90,15 @@ class FormEntry extends Model
     public function getSignAttribute($value)
     {
         if (!$value) return null;
-        return "https://amcbackend.mytime2cloud.com/sign/" . $value;
+        // return "https://amcbackend.mytime2cloud.com/sign/" . $value;
         return asset('sign/' . $value);
+    }
+
+    public function getCustomerSignAttribute($value)
+    {
+        if (!$value) return null;
+        // return "https://amcbackend.mytime2cloud.com/sign/" . $value;
+        return asset('customer_sign/' . $value);
     }
 
     public function getDateAttribute($value)
