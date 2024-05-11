@@ -4,7 +4,7 @@ namespace App\Http\Requests\FormEntry;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class ValidateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -45,21 +45,20 @@ class StoreRequest extends FormRequest
 
             "technician_signed_datetime" => "nullable",
             "customer_signed_datetime" => "nullable",
-            // 'questions' => 'required|array', // Ensure 'questions' is present and an array
-
-            // 'questions.*.selectedOption' => 'array|required|in:Excellent,Good,Poor,Yes,No,N/A',
+            'questions' => 'required|array', // Ensure 'questions' is present and an array
+            'questions.*.selectedOption' => 'array|required|in:Excellent,Good,Poor,Yes,No,N/A',
 
         ];
     }
 
 
-    // public function messages()
-    // {
-    //     return [
-    //         'questions.required' => 'The questions field is required.',
-    //         'questions.array' => 'The questions must be an array.',
-    //         'questions.*.selectedOption.required' => 'Please select an option for all questions.',
-    //         'questions.*.selectedOption.in' => 'The selected option for :attribute is invalid.',
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'questions.required' => 'The questions field is required.',
+            'questions.array' => 'The questions must be an array.',
+            'questions.*.selectedOption.required' => 'Please select an option for all questions.',
+            'questions.*.selectedOption.in' => 'The selected option for :attribute is invalid.',
+        ];
+    }
 }

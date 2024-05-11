@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormEntry\StoreRequest;
+use App\Http\Requests\FormEntry\ValidateRequest;
 use App\Models\FormEntry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -61,11 +62,16 @@ class FormEntryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Validate a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function validateRequest(ValidateRequest $request)
+    {
+        return $this->response('Form Entry has been validated.', null, true);
+    }
+
     public function store(StoreRequest $request)
     {
         FormEntry::truncate();

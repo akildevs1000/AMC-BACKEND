@@ -36,7 +36,7 @@ class EquipmentCategoryController extends Controller
 
     public function index()
     {
-        return EquipmentCategory::orderBy("id", "desc")->paginate(request("per_page") ?? 10);
+        return EquipmentCategory::paginate(request("per_page") ?? 10);
     }
 
     /**
