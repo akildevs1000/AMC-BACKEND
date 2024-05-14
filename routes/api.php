@@ -62,3 +62,4 @@ include('questions.php');
 include('form_entry.php');
 include('checklist.php');
 
+include('manager.php');

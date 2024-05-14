@@ -84,6 +84,11 @@ Route::get('/test_chart', [TestController::class, 'index']);
 Route::get('/test_week', [TestController::class, 'test_week']);
 
 
+Route::get('/amc_report', [PDFController::class, 'amc_report']);
+
+
+
+
 Route::get('/daily_mimo', [Controller::class, 'mimo']);
 Route::get('/weekly_mimo', [WeeklyMimoController::class, 'weekly']);
 Route::get('/monthly_mimo', [MonthlyMimoController::class, 'monthly']);
@@ -110,4 +115,3 @@ Route::get('/access_control_report_print_pdf', [AccessControlController::class, 
 Route::get('/access_control_report_download_pdf', [AccessControlController::class, 'access_control_report_download_pdf']);
 
 Route::get('/document_expiry_print_pdf', [EmployeeController::class, 'document_expiry_print_pdf']);
-

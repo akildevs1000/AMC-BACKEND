@@ -18,6 +18,10 @@ use App\Http\Controllers\Controller;
 class PDFController extends Controller
 {
 
+    public function amc_report(Request $request)
+    {
+        return Pdf::loadView('pdf.html.amc_report')->stream();
+    }
     public function daily_summary(Request $request)
     {
         return Pdf::loadView('pdf.html.daily.daily_summary')->stream();

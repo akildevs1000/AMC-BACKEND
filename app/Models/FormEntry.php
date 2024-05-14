@@ -26,9 +26,9 @@ class FormEntry extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function checklists()
+    public function checklist()
     {
-        return $this->hasMany(Checklist::class)->with("question");
+        return $this->hasOne(Checklist::class)->with("question");
     }
 
     public function amc()

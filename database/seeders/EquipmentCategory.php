@@ -17,11 +17,14 @@ class EquipmentCategory extends Seeder
         ModelsEquipmentCategory::truncate();
 
         ModelsEquipmentCategory::insert([
-            ['name' => 'CCTV'],
-            ['name' => 'Access Control'],
-            ['name' => 'Gate Barrier'],
-            ['name' => 'Intercom'],
-            ['name' => 'Alarm'],
+            ['name' => 'CCTV', 'slug' => 'cctv'],
+            ['name' => 'Access Control', 'slug' => 'access_control'],
+            ['name' => 'Gate Barrier', 'slug' => 'gate_barrier'],
+            ['name' => 'Intercom', 'slug' => 'intercom'],
+            ['name' => 'Alarm', 'slug' => 'alarm'],
+            ['name' => 'Automatic Door', 'slug' => 'automatic_door'],
+            ['name' => 'Time Attendance', 'slug' => 'time_attendance'],
+
         ]);
 
         // php artisan db:seed --class=EquipmentCategory

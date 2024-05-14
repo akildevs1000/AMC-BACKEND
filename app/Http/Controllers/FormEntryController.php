@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FormEntry\StoreRequest;
 use App\Http\Requests\FormEntry\ValidateRequest;
+use App\Http\Requests\FormEntry\ValidateUpdateRequest;
 use App\Models\FormEntry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class FormEntryController extends Controller
         // $model->whereDate('date', "<=", request()->input("to") ?? date("Y-m-d"));
 
         $model->with([
-            "amc", "ticket", "equipment_category", "technician", "checklists"
+            "amc", "ticket", "equipment_category", "technician", "checklist"
         ]);
 
         // return request()->input("company_id");
@@ -69,7 +70,7 @@ class FormEntryController extends Controller
      */
     public function validateRequest(ValidateRequest $request)
     {
-        return $this->response('Form Entry has been validated.', null, true);
+        return $this->response('Form Entry has been validated.', $request->validated(), true);
     }
 
     public function store(StoreRequest $request)
@@ -110,7 +111,45 @@ class FormEntryController extends Controller
      */
     public function show(FormEntry $formEntry)
     {
-        return $formEntry->load(["amc", "ticket", "equipment_category", "technician", "checklists"]);
+        $relations = ["equipment_category", "technician", "checklist"];
+
+        // $relations = ["checklist"];
+
+        $relations[] = $formEntry->work_type == "amc" ? "amc" :  "ticket";
+
+        return $formEntry->load($relations);
+    }
+
+    public function update(ValidateUpdateRequest $request, $id)
+    {
+        $data = $request->validated();
+
+        if ($request->sign) {
+            $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', request('sign')));
+            $imageName = time() . ".png";
+            $publicDirectory = public_path("sign");
+            if (!file_exists($publicDirectory)) {
+                mkdir($publicDirectory);
+            }
+            file_put_contents($publicDirectory . '/' . $imageName, $base64Image);
+
+            $data["sign"] = $imageName;
+        }
+
+        try {
+            FormEntry::where("id", $id)->update([
+                "defective_area" => $data["defective_area"],
+                "summary" => $data["summary"],
+                "technician_signed_datetime" => $data["technician_signed_datetime"]
+            ]);
+
+            (new ChecklistController)->update($request, $id);
+
+
+            return $this->response('Form Entry has been updated.', null, true);
+        } catch (\Exception $e) {
+            return $this->response('Form Entry update created. Error: ' . $e->getMessage(), null, false);
+        }
     }
 
     public function customerUpdate(Request $request, $id)
@@ -133,11 +172,27 @@ class FormEntryController extends Controller
         $data["customer_note"] = $request->customer_note;
         $data["customer_signed_datetime"] = $request->customer_signed_datetime;
 
+
         try {
             $response = FormEntry::where("id", $id)->update($data);
             return $this->response('Form Entry has been updated.', $response, true);
         } catch (\Exception $e) {
             return $this->response('Form Entry cannot created. Error: ' . $e->getMessage(), null, false);
+        }
+    }
+
+    public function destroy(FormEntry $FormEntry)
+    {
+        try {
+            $record = $FormEntry->delete();
+
+            if ($record) {
+                return $this->response('Form successfully deleted.', $record, true);
+            } else {
+                return $this->response('Form cannot delete.', null, false);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 

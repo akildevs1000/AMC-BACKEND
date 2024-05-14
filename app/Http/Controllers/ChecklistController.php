@@ -75,9 +75,30 @@ class ChecklistController extends Controller
      * @param  \App\Models\Checklist  $checklist
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Checklist $checklist)
+    public function update(Request $request, $form_entry_id)
     {
-        //
+        if ($request->attachments && count($request->attachments)) {
+            foreach ($request->attachments as $aKey => $attachment) {
+
+                $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $attachment['attachment']));
+                $publicDirectory = public_path("checklist/" . $form_entry_id);
+
+                if (!file_exists($publicDirectory)) {
+                    mkdir($publicDirectory, 0777, true);
+                }
+
+                file_put_contents($publicDirectory . '/' . $attachment['name'], $base64Image);
+            }
+        }
+
+        try {
+            $model = Checklist::query();
+            $model->where("form_entry_id", $form_entry_id);
+            $model->update(["checklist" => $request->checklist]);
+            return $this->response("Checklist has been added", $model->first(), true);
+        } catch (\Exception $e) {
+            return $this->response("Record cannot update. Error: " . $e->getMessage(), null, false, 500);
+        }
     }
 
     /**
