@@ -15,12 +15,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 
+use Dompdf\Dompdf;
+
+
 class PDFController extends Controller
 {
 
     public function amc_report(Request $request)
     {
-        return Pdf::loadView('pdf.html.amc_report')->stream();
+        return Pdf::setPaper("portrait")->loadView('pdf.html.amc_report')->stream();
     }
     public function daily_summary(Request $request)
     {
