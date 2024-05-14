@@ -44,7 +44,7 @@ class ChecklistController extends Controller
             "checklist" => $request->checklist,
         ];
 
-        Checklist::truncate();
+        // Checklist::truncate();
 
         try {
             $model = Checklist::query();

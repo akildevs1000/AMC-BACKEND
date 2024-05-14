@@ -75,7 +75,7 @@ class FormEntryController extends Controller
 
     public function store(StoreRequest $request)
     {
-        FormEntry::truncate();
+        // FormEntry::truncate();
 
         $data = $request->validated();
 
