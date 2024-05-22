@@ -16,7 +16,7 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        return Equipment::orderBy("id", "desc")->paginate(request("per_page") ?? 10);
+        return Equipment::orderBy("id", "desc")->where("company_id", request("company_id") ?? 0)->paginate(request("per_page") ?? 10);
     }
 
     /**
