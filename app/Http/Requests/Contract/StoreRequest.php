@@ -34,6 +34,9 @@ class StoreRequest extends FormRequest
             "attachment" => "nullable",
             "status" => "required",
             "company_id" => "required",
+
+            "lpo_number" => "nullable",
+
         ];
     }
 }

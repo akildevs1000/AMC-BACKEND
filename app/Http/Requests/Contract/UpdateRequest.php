@@ -29,10 +29,12 @@ class UpdateRequest extends FormRequest
             "expire_date" => "required",
             "amc_type_id" => "required",
             "visit_type_id" => "required",
-            "service_call_type_id" => "required",
+            // "service_call_type_id" => "required",
             "value" => "required|min:3|max:200",
             "attachment" => "nullable",
             "status" => "required",
+
+            "lpo_number" => "nullable",
         ];
     }
 }
