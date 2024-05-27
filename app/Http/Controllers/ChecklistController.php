@@ -49,10 +49,11 @@ class ChecklistController extends Controller
         try {
             $model = Checklist::query();
             $model->where("form_entry_id", $request->form_entry_id);
-            $model->delete();
+            // $model->delete();
             $created = $model->create($arr);
             return $this->response("Checklist has been added", $created, true);
         } catch (\Exception $e) {
+            $this->info($e->getMessage());
             return $this->response("Record cannot update. Error: " . $e->getMessage(), null, false, 500);
         }
     }
