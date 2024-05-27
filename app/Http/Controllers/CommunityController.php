@@ -168,15 +168,4 @@ class CommunityController extends Controller
             throw $th;
         }
     }
-
-    public function addDefaults($id)
-    {
-        $role = Role::insert(defaultRoles($id));
-        $department = Department::insert(defaultDepartments($id));
-        $designation = Designation::insert(defaultDesignations($id));
-        $AnnouncementsCategories = AnnouncementsCategories::insert(defaultAnnouncementCategories($id));
-        $MailContent = MailContent::insert(defaultMailContent($id));
-        $device = Device::insert(defaultDeviceManual($id));
-        return $role && $department && $designation && $AnnouncementsCategories && $MailContent && $device;
-    }
 }
