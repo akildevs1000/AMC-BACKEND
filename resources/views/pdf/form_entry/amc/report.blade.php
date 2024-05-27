@@ -4,38 +4,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ACCESS CONTROL PREVENTIVE MAINTENANCE REPORT</title>
+    <title>Document</title>
+    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"> --}}
+
     <style>
         * {
-            padding: 0px;
+            font-family: "Source Sans Pro", sans-serif !important;
             margin: 0;
-            font-family: "Open Sans", sans-serif;
-            font-size: 9pt;
-            color: #777777;
+            padding: 0;
+            font-size: 11px;
         }
 
         body {
             margin: 25px 25px 0 25px;
-        }
-
-        .pa-1 {
-            padding: 5px !important;
-        }
-
-        .pa-2 {
-            padding: 10px !important;
-        }
-
-        .pa-3 {
-            padding: 15px !important;
-        }
-
-        .pa-4 {
-            padding: 20px !important;
-        }
-
-        .pa-5 {
-            padding: 25px !important;
         }
 
         table {
@@ -46,6 +27,7 @@
         th,
         td {
             border: 1px solid #dddddd;
+            padding: 4px;
             text-align: left;
         }
 
@@ -66,24 +48,16 @@
             height: auto;
         }
 
-        .heading-bg {
-            background: #9e9e9e;
+        .my-blue {
+            background-color: #4640d4 !important;
         }
 
-        .text-white {
-            color: #fff;
+        .my-green {
+            background-color: #a2b63b !important;
         }
 
-        .red {
-            background-color: red;
-        }
-
-        .green {
-            background-color: green;
-        }
-
-        .blue {
-            background-color: blue;
+        .my-red {
+            background-color: #e04e4f !important;
         }
 
         .col-1 {
@@ -102,20 +76,12 @@
             width: 33.2%;
         }
 
-        .col-5 {
-            width: 49.5%;
-        }
-
         .col-6 {
             width: 50%;
         }
 
         .uppercase {
             text-transform: uppercase;
-        }
-
-        .border {
-            border: 1px solid #dddddd;
         }
 
         .border-top {
@@ -158,26 +124,9 @@
             /* Add top border */
         }
 
-        .mx-5 {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-
-        .ml-15 {
-            padding-left: 15px;
-        }
-
-        .mr-15 {
-            padding-right: 15px;
-        }
-
-        .empty-box {
-            min-height: 10px;
-            background: red
-        }
-
         .page-break {
-            page-break-after: always;
+            /* page-break-after: always; */
+            page-break-before: always !important;
         }
 
         footer {
@@ -187,7 +136,6 @@
             text-align: center;
             counter-reset: pageTotal;
             width: 100%;
-
         }
 
         .circle-container {
@@ -217,358 +165,407 @@
             counter-increment: currentPage;
             content: "Page " counter(currentPage) "/";
         }
+
+        .witdh-100 {
+            width: 100%;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+
+            @page {
+                size: A4;
+                margin: 20px !important;
+            }
+
+            .footer-print {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+
+            .page-break {
+                page-break-before: always !important;
+            }
+
+            .uppercase-text {
+                text-transform: uppercase;
+            }
+
+            .top-border {
+                border-top: 1px solid #dddddd;
+            }
+
+            .bottom-border {
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .tb-border {
+                border-top: 1px solid #dddddd;
+                border-bottom: 1px solid #dddddd;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td,
+            th {
+                border-top: 1px solid #dddddd;
+                border-bottom: 1px solid #dddddd;
+                text-align: left;
+                padding: 3px;
+                font-size: 10px;
+            }
+
+            .table-font-color {
+                color: #777777;
+            }
+
+            .left-border {
+                border-left: 1px solid #dddddd;
+            }
+
+            .right-border {
+                border-right: 1px solid #dddddd;
+            }
+
+            .footer-font-size {
+                font-size: 9px;
+            }
+
+
+        }
     </style>
 </head>
 
 <body>
-    <table>
+    <table class="table">
         <tr>
             <td class="text-left border-none col-4">
                 <div class="logo pt">
-                    <img style="width: 100%" src="https://amc.mytime2cloud.com/mail-logo.png" alt="Company Logo" />
+                    <img class="witdh-100" src="https://amc.mytime2cloud.com/mail-logo.png" alt="Company Logo" />
                 </div>
             </td>
-            <td class="text-center border-none col-4 uppercase">
-
-            </td>
+            <td class="text-center border-none col-4 uppercase"></td>
             <td class="text-right border-none col-4">
-                <div class="company-info">
-                    <h3>AKIL SECURITY AND ALARM SYSTEMS</h3>
-                    <p>DUBAI - UNITED ARAB EMIRATES</p>
-                    <p>+971 4 3939 562, INFO@AKILGROUP.COM</p>
+                <h5 class="reds ">AKIL SECURITY AND ALARM SYSTEMS</h5>
+                <div class="greens" style="line-height: 1">
+                    <small class="">Khalid Bin Waleed Road, Dubai, UAE</small>
+                </div>
+                <div class="greens" style="line-height: 1">
+                    <small class=""> Tel : 04 3939 562, mail@akilgroup.com</small>
                 </div>
             </td>
         </tr>
-    </table>
 
-    <table class="mt-2">
         <tr>
-            <td class="col-4 border-none"></td>
-        </tr>
-        <tr>
+            <td class="text-left border-none col-4"></td>
             <td class="text-center border-none col-4 uppercase">
-                <div class="border-top border-bottom pa-2">
-                    <b>ACCESS CONTROL PREVENTIVE MAINTENANCE REPORT</b>
+                <div>
+                    <b class="">{{ $item['equipment_category']['name'] }} PREVENTIVE MAINTENANCE REPORT </b>
+                    <div class="border-top border-bottom ">{{ $item['date'] }}</div>
                 </div>
             </td>
-        </tr>
-        <tr>
-            <td class="col-4 border-none"></td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td class="col-4 border-none">
-                <div class="border-top border-bottom">
-                    Date: {{ $item['date'] }}
-                </div>
-
-            </td>
-            <td class="border-none col-4 uppercase">
-                <div class="border-top border-bottom">
-                    AMC Agreement Number:<b>{{ $item['amc']['contract']['id'] }}</b>
-                </div>
-            </td>
-            <td class="border-none col-4 uppercase">
-                <div class="border-top border-bottom">
-                    Service Report Number: {{ $item['id'] }}
-                </div>
-            </td>
+            <td class="text-right border-none col-4"></td>
         </tr>
     </table>
+    <table class="table mt-1">
+        <tr class="my-blue text-white ">
+            <th>Company Details</th>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <td style="width: 150px">Company Name</td>
+            <td colspan="6">{{ $item['amc']['contract']['company']['name'] ?? '---' }}</td>
+        </tr>
 
-    <div class="section-1">
-        <table class="mt-2">
-            <tr class="heading-bg ">
-                <td class="col-4 border-none">
-                    <div class="border-top border-bottom pa-1">
-                        <b class="text-white">Customer</b>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="col-4 border-none">
-                    <div class="border-bottom pa-1">
-                        Company Name: <b>{{ $item['amc']['contract']['company']['name'] }}</b>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="col-4 border-none">
-                    <div class="border-bottom pa-1">
-                        License Issuer: <b>{{ $item['amc']['contract']['company']['trade_license']['issued_by'] }}</b>
-                    </div>
-                </td>
-                <td class="col-4 border-none">
-                    <div class="border-bottom pa-1">
-                        License Number: <b>{{ $item['amc']['contract']['company']['trade_license']['license_no'] }}</b>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="col-4 border-none">
-                    <div class="border-bottom pa-1">
-                        Address: <b>{{ $item['amc']['contract']['company']['address'] }}</b>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="col-4 border-none">
-                    <div class="border-bottom pa-1">
-                        LPO Number: <b></b>
-                    </div>
-                </td>
-                <td class="col-4 border-none">
-                    <div class="border-bottom pa-1">
-                        AMC Since: <b>{{ $item['amc']['contract']['show_start_date'] }}</b>
-                    </div>
-                </td>
-                <td class="col-4 border-none">
-                    <div class="border-bottom pa-1">
-                        AMC Expire: <b>{{ $item['amc']['contract']['show_expire_date'] }}</b>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+        <tr>
+            <td>Management Company</td>
+            <td colspan="4">Kingfield Management Company</td>
+            <td>Email</td>
+            <td>manager@kingfield.com</td>
+        </tr>
 
-    <div class="section-2">
-        <table class="mt-2">
-            <tr class="heading-bg ">
-                <td class="col-4 border-none">
-                    <div class="border-top border-bottom pa-1">
-                        <b class="text-white">CheckList: Access Control</b>
-                    </div>
-                </td>
+        <tr>
+            <td>Manager</td>
+            <td>{{ $item['amc']['contract']['company']['contact']['name'] ?? '---' }}</td>
+            <td>Email</td>
+            <td colspan="2">{{ $item['amc']['contract']['company']['contact']['email'] ?? '---' }}</td>
+            <td>Phone</td>
+            <td>{{ $item['amc']['contract']['company']['contact']['number'] ?? '---' }}</td>
+        </tr>
+        <tr>
+            <td>Action Plan Issued By</td>
+            <td>Dubai Municipality</td>
+            <td colspan="2">Plot No</td>
+            <td>3920570</td>
+            <td>Land DM No</td>
+            <td>392-570</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td colspan="4">{{ $item['amc']['contract']['company']['address'] ?? '---' }}</td>
+            <td>Makani Number</td>
+            <td>{{ $item['amc']['contract']['company']['makani_number'] ?? '---' }}</td>
+        </tr>
+    </table>
+
+    <table class="table mt-1">
+        <tr class="my-blue text-white ">
+            <th>AMC Details
+            </th>
+        </tr>
+    </table>
+    <table class="table ">
+        <tr>
+            <td style="width: 150px">AMC Start Date</td>
+            <td>{{ $item['amc']['contract']['show_start_date'] ?? '---' }}</td>
+            <td colspan="2">AMC Expire Date</td>
+            <td>{{ $item['amc']['contract']['show_expire_date'] ?? '---' }}</td>
+        </tr>
+        <tr>
+            <td>Equipment</td>
+            <td colspan="2">{{ $item['equipment_category']['name'] ?? '---' }}</td>
+            <td>LPO Number</td>
+            <td>-----</td>
+        </tr>
+    </table>
+
+    <table class="table mt-1">
+        <tr class="my-blue text-white ">
+            <th>Equipement Details
+            </th>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <td style="width: 150px">Recorder</td>
+            <td colspan="2">{{ $equipment['recorder_brand'] }}</td>
+            <td>Total Qty</td>
+            <td>{{ $equipment['recorder_qty'] }}</td>
+            <td>HDD</td>
+            <td>{{ $equipment['recorder_capacity'] }}</td>
+        </tr>
+        <tr>
+            <td style="width: 150px">Work Station</td>
+            <td colspan="2">{{ $equipment['work_station'] }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ $equipment['work_station_qty'] }}</td>
+        </tr>
+        <tr>
+            <td style="width: 150px">Camera</td>
+            <td colspan="2">{{ $equipment['camera'] }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ $equipment['camera_qty'] }}</td>
+        </tr>
+        <tr>
+            <td style="width: 150px">Monitor</td>
+            <td colspan="2">{{ $equipment['monitor'] }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ $equipment['monitor_qty'] }}</td>
+        </tr>
+        <tr>
+            <td style="width: 150px">UPS</td>
+            <td>{{ $equipment['ups'] }}</td>
+            <td>{{ $equipment['ups_specs'] }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ $equipment['ups_qty'] }}</td>
+        </tr>
+        <tr>
+            <td style="width: 150px">Network Switch</td>
+            <td>{{ $equipment['network'] }}</td>
+            <td>{{ $equipment['network_specs'] }}</td>
+            <td>Total Qty</td>
+            <td colspan="3">{{ $equipment['network_qty'] }}</td>
+        </tr>
+    </table>
+
+    <table class="table mt-1">
+        <tr>
+            <td class="text-left border-none col-4"></td>
+            <td class="text-center border-none col-4 uppercase">
+                <div class="border-top border-bottom "><b class="">CHECKLIST</b></div>
+            </td>
+            <td class="text-right border-none col-4"></td>
+        </tr>
+    </table>
+
+    @foreach ($checklist as $key => $checklistItem)
+        <table class="table mt-1">
+            <tr class="my-blue text-white ">
+                <th>{{ $key + 1 }}. {{ $checklistItem['heading'] }}</th>
             </tr>
         </table>
-        <table>
-            <tr>
-                <td class="border-none ">
-                    <div class="border-bottom pa-1 mr-15">
-                        <b>S.No</b>
-                    </div>
-                </td>
-                <td class="border-none">
-                    <div class="border-bottom pa-1 ml-15">
-                        <b>Description</b>
-                    </div>
-                </td>
-                <td class="border-none">
-                    <div class="border-bottom pa-1 ml-15">
-                        <b>Status</b>
-                    </div>
-                </td>
-                <td class="border-none">
-                    <div class="border-bottom pa-1 ml-15">
-                        <b>Attachment</b>
-                    </div>
-                </td>
-                <td class="border-none">
-                    <div class="border-bottom pa-1 ml-15">
-                        <b>Remark</b>
-                    </div>
-                </td>
-            </tr>
-            @foreach ($item['checklists'] as $index => $item)
+        <table class="table">
+            @foreach ($checklistItem['questions'] as $qKey => $question)
                 <tr>
-                    <td class="col-6 border-none">
-                        <div class="pa-1 ml-15">
-                            {{ $index + 1 }}
-                        </div>
-                    </td>
-                    <td class="col-6 border-none">
-                        <div class="pa-1 mr-15">
-                            {{ $item['question']['name'] }}
-                        </div>
-                    </td>
-                    <td class="col-6 border-none">
-                        <div class="pa-1 ml-15">
-                            {{ $item['selectedOption'] }}
-                        </div>
-                    </td>
-                    <td class="col-6 border-none">
-                        <div class="pa-1 ml-15">
-                            {{ $item['attachment'] ? 'PIC ' . $index + 1 : '' }}
-                        </div>
-                    </td>
-                    <td class="col-6 border-none">
-                        <div class="pa-1 ml-15">
-                            {{ $item['remarks'] }}
-                        </div>
-                    </td>
+                    {{-- "": "Excellent",
+                "remarks": null,
+                "isRemarks": false,
+                "attachment_name": null,
+               --}}
+                    <td style="width: 50px">{{ $key + 1 }}. {{ $qKey + 1 }}</td>
+                    <td>{{ $question['question'] }}</td>
+                    <td style="width: 100px"></td>
+
+                    <td style="width: 200px; border-bottom: 1px white solid !important"
+                        class="{{ getCellStyle($question['selectedOption']) }} text-white text-center">
+                        {{ $question['selectedOption'] }}</td>
                 </tr>
             @endforeach
         </table>
-    </div>
+    @endforeach
 
-    <div class="section-3">
-        <table class="mt-2">
-            <tr class="heading-bg ">
-                <td class="col-4 border-none">
-                    <div class="border-top border-bottom pa-1">
-                        <b class="text-white">General Observations & Comments</b>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table>
+    <table class="table page-break">
+        <tr class="my-blue text-white ">
+            <th>Technician Summary
+            </th>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <td>{{ $item['summary'] ?? '---' }}</td>
+        </tr>
+    </table>
 
-            <tr>
-                <td class="col-4 border-none">
-                    <div class="border-bottom pa-1">
-                        <ul class="pa-2">
-                            <li>write your summary here</li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-4 border-none ">
-                    <div class="border-bottom pa-2">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-4 border-none ">
-                    <div class="border-bottom pa-2">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-4 border-none ">
-                    <div class="border-bottom pa-2">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-4 border-none ">
-                    <div class="border-bottom pa-2">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-4 border-none ">
-                    <div class="border-bottom pa-2">
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-    </div>
-
-    <div class="section-4">
-        <table class="mt-2">
-            <tr class="heading-bg ">
-                <td class="col-4 border-none">
-                    <div class="border-top border-bottom pa-1">
-                        <b class="text-white">Acknowledge</b>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="border-none ">
-                    <div class="border-bottom pa-1 mr-15">
-                        Engineer
-                    </div>
-                </td>
-                <td class="border-none">
-                    <div class="border-bottom pa-1 ml-15">
-                        Customer
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="border-none ">
-                    <div class="border-bottom pa-1 mr-15">
-                        Name
-                    </div>
-                </td>
-                <td class="border-none">
-                    <div class="border-bottom pa-1 ml-15">
-                        Name
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="border-none ">
-                    <div class="border-bottom pa-1 mr-15">
-                        Phone
-                    </div>
-                </td>
-                <td class="border-none">
-                    <div class="border-bottom pa-1 ml-15">
-                        Phone
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-6 border-none">
-                    <div class="pa-1 mr-15">
-                        Sign
-                    </div>
-                </td>
-                <td class="col-6 border-none">
-
-                    <div class="pa-1 ml-15">
-                        Sign
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-6 border-none">
-                    <div class="pa-1 mr-15">
-                        <div style="width:350px;min-height:100px;" class="border">
-                            <img style="width: 100%;" src="" alt="Technician Sign" />
-                        </div>
-                    </div>
-                </td>
-                <td class="col-6 border-none">
-
-                    <div class=" pa-1 ml-15">
-                        <div style="width:350px;min-height:100px;" class="border">
-                            <img style="width: 100%;height:100px;" src="{{ $item['sign'] }}" alt="Customer Sign" />
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <table class="table mt-1">
+        <tr class="my-blue text-white ">
+            <th>Customer Comments
+            </th>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <td>{{ $item['customer_note'] ?? '---' }}</td>
+        </tr>
+    </table>
 
 
-    <footer>
-        <hr class="mt-1" style="color:#dddddd;">
-        <table>
-            <tr>
-                <td class="text-left border-none col-4">
-                    <div>
-                        Printed On {{ date('d M Y') }}
-                    </div>
-                </td>
-                <td class="text-center border-none col-4 ">
-                    <div>
-                        This is system generated report
-                    </div>
-                </td>
-                <td class="text-right border-none col-4">
-                    <div class="company-info">
-                        1/1
+    <table class="table mt-2">
+        <tr class="my-blue text-white ">
+            <th>Technician Signature
+            </th>
+        </tr>
+    </table>
 
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </footer>
+    <table class="table">
+        <tr>
+            <td class="text-left border-none col-6">
+                <table>
+                    <tr style="border-bottom: 1px solid #dddddd;">
+                        <td class="pa-1" style="border: none">
+                            <b>Name</b>
+                            <div>
+                                {{ $item['technician']['name'] ?? '---' }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #dddddd;">
+                        <td class="pa-1" style="border: none">
+                            <b>Phone</b>
+                            <div>
+                                {{ $item['technician']['phone_number'] ?? '---' }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #dddddd;">
+                        <td class="pa-1" style="border: none">
+                            <b>Email</b>
+                            <div>
+                                {{ $item['technician']['email'] ?? '---' }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #dddddd;">
+                        <td class="pa-1" style="border: none">
+                            <b>Date Time</b>
+                            <div>
+                                {{ $item['technician_signed_datetime'] ?? '---' }}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="border-none col-6">
+                <div style="width:175px; margin:0 auto;">
+                    @if ($item['sign'])
+                        <img class="witdh-100" src="{{ $item['sign'] }}" alt="Company Logo" />
+                    @endif
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table mt-2">
+        <tr class="my-blue text-white ">
+            <th>Customer Signature
+            </th>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td class="text-left border-none col-6">
+                <table>
+                    <tr style="border-bottom: 1px solid #dddddd;">
+                        <td class="pa-1" style="border: none">
+                            <b>Name</b>
+                            <div>
+                                {{ $item['customer_name'] ?? '---' }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #dddddd;">
+                        <td class="pa-1" style="border: none">
+                            <b>Phone</b>
+                            <div>
+                                {{ $item['customer_phone'] ?? '---' }}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr style="border-bottom: 1px solid #dddddd;">
+                        <td class="pa-1" style="border: none">
+                            <b>Date Time</b>
+                            <div>
+                                {{ $item['customer_signed_datetime'] ?? '---' }}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="border-none col-6">
+                <div style="width:175px; margin:0 auto;">
+                    @if ($item['customer_sign'])
+                        <img class="witdh-100" src="{{ $item['customer_sign'] }}" alt="Company Logo" />
+                    @endif
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <?php
+    function getCellStyle($selectedOption)
+    {
+        if (in_array($selectedOption, ['Excellent', 'Good', 'Yes'])) {
+            return 'my-green';
+        } elseif (in_array($selectedOption, ['N/A'])) {
+            return 'grey lighten-2';
+        } else {
+            return 'my-red';
+        }
+    }
+    ?>
+
 </body>
 
 </html>

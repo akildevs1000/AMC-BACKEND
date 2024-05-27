@@ -205,8 +205,14 @@ class FormEntryController extends Controller
 
     public function amcPrint($id)
     {
-        $item = FormEntry::with(["amc", "equipment_category", "technician", "checklists"])->find($id);
+        $relations = ["equipment_category", "technician", "checklist"];
 
-        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.amc.report', compact("item"))->stream();
+        $item = FormEntry::with(["amc", "equipment_category", "technician", "checklist"])->find($id);
+
+        $equipment = $item['equipment_category']['equipment'];
+
+        $checklist = $item['checklist']['checklist'];
+
+        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.amc.report', compact("item", "equipment", "checklist"))->stream();
     }
 }
