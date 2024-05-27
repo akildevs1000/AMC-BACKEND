@@ -29,7 +29,13 @@ class InfoRequest extends FormRequest
             'email' => 'required|email|min:3|max:191|unique:users',
             'member_from' => ['required', 'date'],
             'expiry' => ['required', 'date'],
-            'management_company' => 'required',
+            // 'management_company' => 'required',
+
+            'management_company_name' => 'nullable',
+            'management_company_email' => 'nullable',
+            'action_plan_issued_by' => 'nullable',
+            'plot_number' => 'nullable',
+            'land_dm_number' => 'nullable',
         ];
     }
 }

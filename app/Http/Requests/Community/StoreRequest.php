@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
             'company_name' => ['required', 'min:3', 'max:100'],
             'member_from' => ['required', 'date'],
             'expiry' => ['required', 'date'],
-            'management_company' => 'required',
+            // 'management_company' => 'required',
             'contact_name' => ['required', 'min:3', 'max:100'],
             'number' => ['required', 'min:8', 'max:15'],
             'position' => ['required', 'min:3', 'max:100'],
@@ -39,6 +39,12 @@ class StoreRequest extends FormRequest
             'location' => ['nullable', 'min:3', 'max:255'],
             'lat' => ['nullable'],
             'lon' => ['nullable'],
+
+            'management_company_name' => 'nullable',
+            'management_company_email' => 'nullable',
+            'action_plan_issued_by' => 'nullable',
+            'plot_number' => 'nullable',
+            'land_dm_number' => 'nullable',
         ];
     }
 }
