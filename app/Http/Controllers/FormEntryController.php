@@ -8,6 +8,7 @@ use App\Http\Requests\FormEntry\ValidateUpdateRequest;
 use App\Models\FormEntry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FormEntryController extends Controller
 {
@@ -96,10 +97,11 @@ class FormEntryController extends Controller
             if ($response) {
                 return $this->response('Form Entry successfully created.', $response, true);
             } else {
+                Log::info($response);
                 return $this->response('Form Entry cannot created.', null, false);
             }
-        } catch (\Throwable $th) {
-            throw $th;
+        } catch (\Exception $e) {
+            Log::info($e->getMessage());
         }
     }
 
