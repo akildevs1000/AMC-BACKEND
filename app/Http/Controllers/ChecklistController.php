@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Checklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ChecklistController extends Controller
@@ -53,7 +54,7 @@ class ChecklistController extends Controller
             $created = $model->create($arr);
             return $this->response("Checklist has been added", $created, true);
         } catch (\Exception $e) {
-            $this->info($e->getMessage());
+            Log::info($e->getMessage());
             return $this->response("Record cannot update. Error: " . $e->getMessage(), null, false, 500);
         }
     }
