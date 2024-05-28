@@ -33,6 +33,9 @@ class TechnicianController extends Controller
 
 
         return $technician->serviceCalls()
+            ->when(request()->input("company_id"), function ($q) {
+                $q->whereHas("contract", fn ($qu) => $qu->where("company_id", request("company_id")));
+            })
             ->when(request()->input("status"), fn ($q) => $q->where("status", request("status")))
             ->orderBy("schedule_start_date", "asc")
             ->paginate(request("per_page") ?? 10);

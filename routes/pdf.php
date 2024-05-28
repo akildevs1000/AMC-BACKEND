@@ -84,14 +84,14 @@ Route::get('/test_chart', [TestController::class, 'index']);
 Route::get('/test_week', [TestController::class, 'test_week']);
 
 
+Route::get('/amc_report_test', [Controller::class, 'amc_report_test']);
 Route::get('/amc_report', [PDFController::class, 'amc_report']);
 
 
 
 
+
 Route::get('/daily_mimo', [Controller::class, 'mimo']);
-Route::get('/weekly_mimo', [WeeklyMimoController::class, 'weekly']);
-Route::get('/monthly_mimo', [MonthlyMimoController::class, 'monthly']);
 
 
 

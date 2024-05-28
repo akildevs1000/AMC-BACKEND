@@ -76,10 +76,6 @@
             width: 33.2%;
         }
 
-        .col-6 {
-            width: 50%;
-        }
-
         .uppercase {
             text-transform: uppercase;
         }
@@ -125,8 +121,7 @@
         }
 
         .page-break {
-            /* page-break-after: always; */
-            page-break-before: always !important;
+            page-break-after: always;
         }
 
         footer {
@@ -270,8 +265,8 @@
             <td class="text-left border-none col-4"></td>
             <td class="text-center border-none col-4 uppercase">
                 <div>
-                    <b class="">{{ $item['equipment_category']['name'] }} PREVENTIVE MAINTENANCE REPORT </b>
-                    <div class="border-top border-bottom ">{{ $item['date'] }}</div>
+                    <b class="">CCTV PREVENTIVE MAINTENANCE REPORT </b>
+                    <div class="border-top border-bottom ">14 May 2024</div>
                 </div>
             </td>
             <td class="text-right border-none col-4"></td>
@@ -285,36 +280,37 @@
     <table class="table">
         <tr>
             <td style="width: 150px">Company Name</td>
-            <td colspan="6">{{ $item['amc']['contract']['company']['name'] ?? '---' }}</td>
+            <td colspan="6">ABC Company</td>
         </tr>
 
         <tr>
             <td>Management Company</td>
-            <td colspan="4">{{ $item['amc']['contract']['company']['management_company_name'] ?? '---' }}</td>
+            <td colspan="4">Kingfield Management Company</td>
             <td>Email</td>
-            <td>{{ $item['amc']['contract']['company']['management_company_email'] ?? '---' }}</td>
+            <td>manager@kingfield.com</td>
         </tr>
+
         <tr>
             <td>Manager</td>
-            <td>{{ $item['amc']['contract']['company']['contact']['name'] ?? '---' }}</td>
+            <td>John Doe</td>
             <td>Email</td>
-            <td colspan="2">{{ $item['amc']['contract']['company']['contact']['email'] ?? '---' }}</td>
+            <td colspan="2">john.doe@example.com</td>
             <td>Phone</td>
-            <td>{{ $item['amc']['contract']['company']['contact']['number'] ?? '---' }}</td>
+            <td>123-456-7890</td>
         </tr>
         <tr>
             <td>Action Plan Issued By</td>
-            <td>{{ $item['amc']['contract']['company']['action_plan_issued_by'] ?? '---' }}</td>
+            <td>Dubai Municipality</td>
             <td colspan="2">Plot No</td>
-            <td>{{ $item['amc']['contract']['company']['plot_number'] ?? '---' }}</td>
+            <td>3920570</td>
             <td>Land DM No</td>
-            <td>{{ $item['amc']['contract']['company']['land_dm_number'] ?? '---' }}</td>
+            <td>392-570</td>
         </tr>
         <tr>
             <td>Address</td>
-            <td colspan="4">{{ $item['amc']['contract']['company']['address'] ?? '---' }}</td>
+            <td colspan="4">123 Main Street, Dubai, UAE</td>
             <td>Makani Number</td>
-            <td>{{ $item['amc']['contract']['company']['makani_number'] ?? '---' }}</td>
+            <td>1234567890</td>
         </tr>
     </table>
 
@@ -327,15 +323,15 @@
     <table class="table ">
         <tr>
             <td style="width: 150px">AMC Start Date</td>
-            <td>{{ $item['amc']['contract']['show_start_date'] ?? '---' }}</td>
+            <td>14 May 2024</td>
             <td colspan="2">AMC Expire Date</td>
-            <td>{{ $item['amc']['contract']['show_expire_date'] ?? '---' }}</td>
+            <td>14 May 2024</td>
         </tr>
         <tr>
             <td>Equipment</td>
-            <td colspan="2">{{ $item['equipment_category']['name'] ?? '---' }}</td>
+            <td colspan="2">sdfsdfsdf</td>
             <td>LPO Number</td>
-            <td>{{ $item['amc']['contract']['lpo_number'] ?? '---' }}</td>
+            <td>-----</td>
         </tr>
     </table>
 
@@ -348,43 +344,43 @@
     <table class="table">
         <tr>
             <td style="width: 150px">Recorder</td>
-            <td colspan="2">{{ $equipment['recorder_brand'] }}</td>
+            <td colspan="2">SAMSUNG</td>
             <td>Total Qty</td>
-            <td>{{ $equipment['recorder_qty'] }}</td>
+            <td>13</td>
             <td>HDD</td>
-            <td>{{ $equipment['recorder_capacity'] }}</td>
+            <td>016</td>
         </tr>
         <tr>
             <td style="width: 150px">Work Station</td>
-            <td colspan="2">{{ $equipment['work_station'] }}</td>
+            <td colspan="2">SSM</td>
             <td>Total Qty</td>
-            <td colspan="3">{{ $equipment['work_station_qty'] }}</td>
+            <td colspan="3">1</td>
         </tr>
         <tr>
             <td style="width: 150px">Camera</td>
-            <td colspan="2">{{ $equipment['camera'] }}</td>
+            <td colspan="2">208</td>
             <td>Total Qty</td>
-            <td colspan="3">{{ $equipment['camera_qty'] }}</td>
+            <td colspan="3">208</td>
         </tr>
         <tr>
             <td style="width: 150px">Monitor</td>
-            <td colspan="2">{{ $equipment['monitor'] }}</td>
+            <td colspan="2">SAMSUNG 22INCH</td>
             <td>Total Qty</td>
-            <td colspan="3">{{ $equipment['monitor_qty'] }}</td>
+            <td colspan="3">13</td>
         </tr>
         <tr>
             <td style="width: 150px">UPS</td>
-            <td>{{ $equipment['ups'] }}</td>
-            <td>{{ $equipment['ups_specs'] }}</td>
+            <td>APC</td>
+            <td>3KVA</td>
             <td>Total Qty</td>
-            <td colspan="3">{{ $equipment['ups_qty'] }}</td>
+            <td colspan="3">12</td>
         </tr>
         <tr>
             <td style="width: 150px">Network Switch</td>
-            <td>{{ $equipment['network'] }}</td>
-            <td>{{ $equipment['network_specs'] }}</td>
+            <td>D-LINK SWITCH</td>
+            <td>24 PORT SWITCH</td>
             <td>Total Qty</td>
-            <td colspan="3">{{ $equipment['network_qty'] }}</td>
+            <td colspan="3">12</td>
         </tr>
     </table>
 
@@ -398,172 +394,25 @@
         </tr>
     </table>
 
-    @foreach ($checklist as $key => $checklistItem)
-        <table class="table mt-1">
-            <tr class="my-blue text-white ">
-                <th>{{ $key + 1 }}. {{ $checklistItem['heading'] }}</th>
-            </tr>
-        </table>
-        <table class="table">
-            @foreach ($checklistItem['questions'] as $qKey => $question)
-                <tr>
-                    {{-- "": "Excellent",
-                "remarks": null,
-                "isRemarks": false,
-                "attachment_name": null,
-               --}}
-                    <td style="width: 50px">{{ $key + 1 }}. {{ $qKey + 1 }}</td>
-                    <td>{{ $question['question'] }}</td>
-                    <td style="width: 100px"></td>
-
-                    <td style="width: 200px; border-bottom: 1px white solid !important"
-                        class="{{ getCellStyle($question['selectedOption']) }} text-white text-center">
-                        {{ $question['selectedOption'] }}</td>
-                </tr>
-            @endforeach
-        </table>
-    @endforeach
-
-    <table class="table page-break">
-        <tr class="my-blue text-white ">
-            <th>Technician Summary
-            </th>
-        </tr>
-    </table>
-    <table class="table">
-        <tr>
-            <td>{{ $item['summary'] ?? '---' }}</td>
-        </tr>
-    </table>
-
     <table class="table mt-1">
         <tr class="my-blue text-white ">
-            <th>Customer Comments
-            </th>
+            <th>1. Camera</th>
         </tr>
     </table>
     <table class="table">
         <tr>
-            <td>{{ $item['customer_note'] ?? '---' }}</td>
+            <td style="width: 50px">1.1</td>
+            <td>14 May 2024</td>
+            <td style="width: 100px"></td>
+            <td style="width: 200px; border-bottom: 1px white solid !important" class="my-red text-white text-center">14 May 2024</td>
         </tr>
-    </table>
-
-
-    <table class="table mt-2">
-        <tr class="my-blue text-white ">
-            <th>Technician Signature
-            </th>
-        </tr>
-    </table>
-
-    <table class="table">
         <tr>
-            <td class="text-left border-none col-6">
-                <table>
-                    <tr style="border-bottom: 1px solid #dddddd;">
-                        <td class="pa-1" style="border: none">
-                            <b>Name</b>
-                            <div>
-                                {{ $item['technician']['name'] ?? '---' }}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #dddddd;">
-                        <td class="pa-1" style="border: none">
-                            <b>Phone</b>
-                            <div>
-                                {{ $item['technician']['phone_number'] ?? '---' }}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #dddddd;">
-                        <td class="pa-1" style="border: none">
-                            <b>Email</b>
-                            <div>
-                                {{ $item['technician']['email'] ?? '---' }}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #dddddd;">
-                        <td class="pa-1" style="border: none">
-                            <b>Date Time</b>
-                            <div>
-                                {{ $item['technician_signed_datetime'] ?? '---' }}
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td class="border-none col-6">
-                {{-- <div style="width:175px; margin:0 auto;">
-                    @if ($item['sign'])
-                        <img class="witdh-100" src="{{ $item['sign'] }}" alt="Company Logo" />
-                    @endif
-                </div> --}}
-            </td>
+            <td style="width: 50px">1.1</td>
+            <td>14 May 2024</td>
+            <td style="width: 100px"></td>
+            <td style="width: 200px; border-bottom: 1px white solid !important" class="my-red text-white text-center">14 May 2024</td>
         </tr>
     </table>
-
-    <table class="table mt-2">
-        <tr class="my-blue text-white ">
-            <th>Customer Signature
-            </th>
-        </tr>
-    </table>
-
-    <table class="table">
-        <tr>
-            <td class="text-left border-none col-6">
-                <table>
-                    <tr style="border-bottom: 1px solid #dddddd;">
-                        <td class="pa-1" style="border: none">
-                            <b>Name</b>
-                            <div>
-                                {{ $item['customer_name'] ?? '---' }}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #dddddd;">
-                        <td class="pa-1" style="border: none">
-                            <b>Phone</b>
-                            <div>
-                                {{ $item['customer_phone'] ?? '---' }}
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr style="border-bottom: 1px solid #dddddd;">
-                        <td class="pa-1" style="border: none">
-                            <b>Date Time</b>
-                            <div>
-                                {{ $item['customer_signed_datetime'] ?? '---' }}
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td class="border-none col-6">
-                {{-- <div style="width:175px; margin:0 auto;">
-                    @if ($item['customer_sign'])
-                        <img class="witdh-100" src="{{ $item['customer_sign'] }}" alt="Company Logo" />
-                    @endif
-                </div> --}}
-            </td>
-        </tr>
-    </table>
-
-    <?php
-    function getCellStyle($selectedOption)
-    {
-        if (in_array($selectedOption, ['Excellent', 'Good', 'Yes'])) {
-            return 'my-green';
-        } elseif (in_array($selectedOption, ['N/A'])) {
-            return 'grey lighten-2';
-        } else {
-            return 'my-red';
-        }
-    }
-    ?>
 
 </body>
 
