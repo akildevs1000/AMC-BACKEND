@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attachment;
 use App\Models\Checklist;
+use App\Models\FormEntry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -87,18 +88,37 @@ class ChecklistController extends Controller
      */
     public function update(Request $request, $form_entry_id)
     {
+        $attachments = [];
+
+        $existingAttachments = [];
+
         if ($request->attachments && count($request->attachments)) {
+
             foreach ($request->attachments as $aKey => $attachment) {
 
-                $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $attachment['attachment']));
-                $publicDirectory = public_path("checklist/" . $form_entry_id);
+                if (array_key_exists("name", $attachment)) {
+                    $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $attachment['attachment']));
+                    $publicDirectory = public_path("checklist/" . $form_entry_id);
 
-                if (!file_exists($publicDirectory)) {
-                    mkdir($publicDirectory, 0777, true);
+                    if (!file_exists($publicDirectory)) {
+                        mkdir($publicDirectory, 0777, true);
+                    }
+
+                    file_put_contents($publicDirectory . '/' . $attachment['name'], $base64Image);
+
+                    $attachments[] = [
+                        "form_entry_id" => $form_entry_id,
+                        "attachment" => $attachment['name'],
+                    ];
+
+                    $existingAttachments[] = $attachment['name'];
                 }
-
-                file_put_contents($publicDirectory . '/' . $attachment['name'], $base64Image);
             }
+
+
+
+            Attachment::where("form_entry_id", $form_entry_id)->whereIn("attachment", $existingAttachments)->delete();
+            Attachment::insert($attachments);
         }
 
         try {

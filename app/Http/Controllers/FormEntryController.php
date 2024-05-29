@@ -61,7 +61,7 @@ class FormEntryController extends Controller
         // $model->whereDate('date', "<=", request()->input("to") ?? date("Y-m-d"));
 
         $model->with([
-            "attachments","amc", "ticket", "equipment_category", "technician", "checklist"
+            "attachments", "amc", "ticket", "equipment_category", "technician", "checklist"
         ]);
 
         // return request()->input("company_id");
@@ -83,6 +83,8 @@ class FormEntryController extends Controller
     public function store(StoreRequest $request)
     {
         // FormEntry::truncate();
+        // Attachment::truncate();
+        // Checklist::truncate();
 
         $data = $request->validated();
 
@@ -119,7 +121,7 @@ class FormEntryController extends Controller
      */
     public function show(FormEntry $formEntry)
     {
-        $relations = ["attachments","equipment_category", "technician", "checklist"];
+        $relations = ["attachments", "equipment_category", "technician", "checklist"];
 
         // $relations = ["checklist"];
 
@@ -130,6 +132,7 @@ class FormEntryController extends Controller
 
     public function update(ValidateUpdateRequest $request, $id)
     {
+
         $data = $request->validated();
 
         if ($request->sign) {
@@ -143,16 +146,13 @@ class FormEntryController extends Controller
 
             $data["sign"] = $imageName;
         }
-
+        (new ChecklistController)->update($request, $id);
         try {
             FormEntry::where("id", $id)->update([
                 "defective_area" => $data["defective_area"],
                 "summary" => $data["summary"],
                 "technician_signed_datetime" => $data["technician_signed_datetime"]
             ]);
-
-            (new ChecklistController)->update($request, $id);
-
 
             return $this->response('Form Entry has been updated.', null, true);
         } catch (\Exception $e) {
@@ -215,7 +215,7 @@ class FormEntryController extends Controller
     {
         $relations = ["equipment_category", "technician", "checklist"];
 
-        $item = FormEntry::with(["attachments","amc", "equipment_category", "technician", "checklist"])->find($id);
+        $item = FormEntry::with(["attachments", "amc", "equipment_category", "technician", "checklist"])->find($id);
 
         $equipment = $item['equipment_category']['equipment'];
 
