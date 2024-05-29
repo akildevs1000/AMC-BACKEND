@@ -11,11 +11,11 @@ class FormEntry extends Model
 
     protected $guarded = [];
 
-    /**
-     * The technician that belong to the FormEntry
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+
     public function technician()
     {
         return $this->belongsTo(Technician::class);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FormEntry\StoreRequest;
 use App\Http\Requests\FormEntry\ValidateRequest;
 use App\Http\Requests\FormEntry\ValidateUpdateRequest;
+use App\Models\Attachment;
+use App\Models\Checklist;
 use App\Models\FormEntry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -19,6 +21,10 @@ class FormEntryController extends Controller
      */
     public function index()
     {
+        // FormEntry::truncate();
+        // Attachment::truncate();
+        // Checklist::truncate();
+
 
         $model = FormEntry::query();
 
@@ -55,7 +61,7 @@ class FormEntryController extends Controller
         // $model->whereDate('date', "<=", request()->input("to") ?? date("Y-m-d"));
 
         $model->with([
-            "amc", "ticket", "equipment_category", "technician", "checklist"
+            "attachments","amc", "ticket", "equipment_category", "technician", "checklist"
         ]);
 
         // return request()->input("company_id");
@@ -113,7 +119,7 @@ class FormEntryController extends Controller
      */
     public function show(FormEntry $formEntry)
     {
-        $relations = ["equipment_category", "technician", "checklist"];
+        $relations = ["attachments","equipment_category", "technician", "checklist"];
 
         // $relations = ["checklist"];
 
@@ -209,7 +215,7 @@ class FormEntryController extends Controller
     {
         $relations = ["equipment_category", "technician", "checklist"];
 
-        $item = FormEntry::with(["amc", "equipment_category", "technician", "checklist"])->find($id);
+        $item = FormEntry::with(["attachments","amc", "equipment_category", "technician", "checklist"])->find($id);
 
         $equipment = $item['equipment_category']['equipment'];
 

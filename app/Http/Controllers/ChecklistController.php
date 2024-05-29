@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\Checklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -28,6 +29,8 @@ class ChecklistController extends Controller
      */
     public function store(Request $request)
     {
+        $attachments = [];
+
         foreach ($request->attachments as $aKey => $attachment) {
 
             $base64Image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $attachment['attachment']));
@@ -38,6 +41,11 @@ class ChecklistController extends Controller
             }
 
             file_put_contents($publicDirectory . '/' . $attachment['name'], $base64Image);
+
+            $attachments[] = [
+                "form_entry_id" => $request->form_entry_id,
+                "attachment" => $attachment['name'],
+            ];
         }
 
         $arr = [
@@ -45,7 +53,7 @@ class ChecklistController extends Controller
             "checklist" => $request->checklist,
         ];
 
-        // Checklist::truncate();
+        Attachment::insert($attachments);
 
         try {
             $model = Checklist::query();
