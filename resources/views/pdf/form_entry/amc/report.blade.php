@@ -380,10 +380,10 @@
                         @foreach ($attachments as $attachment)
                             <td class="border-none col-6">
                                 <div style="padding: 2px">
-                                <div class="border">{{ $attachment['attachment'] }}</div>
+                                    <div class="border">{{ $attachment['attachment'] }}</div>
 
                                     <img class="width-100"
-                                        src="https://amcbackend.mytime2cloud.com/checklist/63/pic-1.1.1.png">
+                                        src="https://amcbackend.mytime2cloud.com/checklist/{{ $attachment['form_entry_id'] }}/{{ $attachment['attachment'] }}">
 
                                 </div>
                             </td>
