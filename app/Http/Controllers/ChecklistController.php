@@ -109,12 +109,12 @@ class ChecklistController extends Controller
 
 
                     $attachments[] = [
-                        "form_entry_id" => $request->form_entry_id,
+                        "form_entry_id" => $form_entry_id,
                         "attachment" => $attachment['name'] . ".png",
                         "slug" => $attachment['name'],
                     ];
 
-                    $existingAttachments[] = $attachment['name'];
+                    $existingAttachments[] = $attachment['name'] . ".png";
                 }
             }
 

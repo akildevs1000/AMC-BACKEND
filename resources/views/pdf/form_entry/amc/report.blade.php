@@ -367,7 +367,34 @@
                 @endforeach
             </table>
         @endforeach
+
+        @if (count($attachmentChunks) > 0)
+            <table class="table mt-2 page-break">
+                <tr class="my-blue text-white">
+                    <th colspan="2">Attachments
+                    </th>
+                </tr>
+
+                @foreach ($attachmentChunks as $attachments)
+                    <tr>
+                        @foreach ($attachments as $attachment)
+                            <td class="border-none col-6">
+                                <div style="padding: 2px">
+                                <div class="border">{{ $attachment['attachment'] }}</div>
+
+                                    <img class="width-100"
+                                        src="https://amcbackend.mytime2cloud.com/checklist/63/pic-1.1.1.png">
+
+                                </div>
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
+        @endif
     </div>
+
+
 
     <?php
     function getCellStyle($selectedOption)
