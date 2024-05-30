@@ -221,6 +221,10 @@ class FormEntryController extends Controller
 
         $checklist = $item['checklist']['checklist'];
 
-        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.amc.report', compact("item", "equipment", "checklist"))->stream();
+        $attachments = $item['attachments'];
+
+        $attachmentChunks = array_chunk($attachments->toArray(), 2);
+
+        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.amc.report', compact("item", "equipment", "checklist", "attachmentChunks"))->stream();
     }
 }

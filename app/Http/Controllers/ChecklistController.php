@@ -41,11 +41,12 @@ class ChecklistController extends Controller
                 mkdir($publicDirectory, 0777, true);
             }
 
-            file_put_contents($publicDirectory . '/' . $attachment['name'], $base64Image);
+            file_put_contents($publicDirectory . '/' . $attachment['name'] . ".png", $base64Image);
 
             $attachments[] = [
                 "form_entry_id" => $request->form_entry_id,
-                "attachment" => $attachment['name'],
+                "attachment" => $attachment['name'] . ".png",
+                "slug" => $attachment['name'],
             ];
         }
 
@@ -104,11 +105,13 @@ class ChecklistController extends Controller
                         mkdir($publicDirectory, 0777, true);
                     }
 
-                    file_put_contents($publicDirectory . '/' . $attachment['name'], $base64Image);
+                    file_put_contents($publicDirectory . '/' . $attachment['name'] . ".png", $base64Image);
+
 
                     $attachments[] = [
-                        "form_entry_id" => $form_entry_id,
-                        "attachment" => $attachment['name'],
+                        "form_entry_id" => $request->form_entry_id,
+                        "attachment" => $attachment['name'] . ".png",
+                        "slug" => $attachment['name'],
                     ];
 
                     $existingAttachments[] = $attachment['name'];
