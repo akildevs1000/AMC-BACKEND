@@ -287,7 +287,6 @@
             <td style="width: 150px">Company Name</td>
             <td colspan="6">{{ $item['amc']['contract']['company']['name'] ?? '---' }}</td>
         </tr>
-
         <tr>
             <td>Management Company</td>
             <td colspan="4">{{ $item['amc']['contract']['company']['management_company_name'] ?? '---' }}</td>
@@ -317,7 +316,6 @@
             <td>{{ $item['amc']['contract']['company']['makani_number'] ?? '---' }}</td>
         </tr>
     </table>
-
     <table class="table mt-1">
         <tr class="my-blue text-white ">
             <th>AMC Details
@@ -338,7 +336,6 @@
             <td>{{ $item['amc']['contract']['lpo_number'] ?? '---' }}</td>
         </tr>
     </table>
-
     <table class="table mt-1">
         <tr class="my-blue text-white ">
             <th>Equipement Details
@@ -387,7 +384,6 @@
             <td colspan="3">{{ $equipment['network_qty'] }}</td>
         </tr>
     </table>
-
     <table class="table mt-1">
         <tr>
             <td class="text-left border-none col-4"></td>
@@ -495,11 +491,11 @@
                 </table>
             </td>
             <td class="border-none col-6">
-                {{-- <div style="width:175px; margin:0 auto;">
+                <div style="width:175px; margin:0 auto;">
                     @if ($item['sign'])
-                        <img class="witdh-100" src="{{ $item['sign'] }}" alt="Company Logo" />
+                        <img class="witdh-100" src="{{ $item['sign'] }}" />
                     @endif
-                </div> --}}
+                </div>
             </td>
         </tr>
     </table>
@@ -543,11 +539,11 @@
                 </table>
             </td>
             <td class="border-none col-6">
-                {{-- <div style="width:175px; margin:0 auto;">
+                <div style="width:175px; margin:0 auto;">
                     @if ($item['customer_sign'])
-                        <img class="witdh-100" src="{{ $item['customer_sign'] }}" alt="Company Logo" />
+                        <img class="witdh-100" src="{{ $item['customer_sign'] }}" />
                     @endif
-                </div> --}}
+                </div>
             </td>
         </tr>
     </table>
