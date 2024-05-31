@@ -143,9 +143,9 @@ class StoreRequest extends FormRequest
                 "ups_qty" => "required|min:1|max:50",
                 "ups_type" => "nullable|min:3|max:50",
 
-                "exit_switch" => "required|min:3|max:50",
-                "fire_switch" => "required|min:1|max:50",
-                "remote" => "nullable|min:3|max:50",
+                // "exit_switch" => "required|min:3|max:50",
+                // "fire_switch" => "required|min:1|max:50",
+                // "remote" => "nullable|min:3|max:50",
 
                 "auto_light" => "nullable|min:3|max:50",
                 "auto_light_qty" => "nullable|min:3|max:50",
