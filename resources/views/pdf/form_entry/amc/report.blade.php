@@ -382,8 +382,13 @@
                                 <div style="padding: 2px">
                                     <div class="border">{{ $attachment['attachment'] }}</div>
 
-                                    <img class="width-100"
-                                        src="https://amcbackend.mytime2cloud.com/checklist/{{ $attachment['form_entry_id'] }}/{{ $attachment['attachment'] }}">
+                                    @if (env('APP_ENV') == 'local')
+                                        <img class="width-100"
+                                            src="https://amcbackend.mytime2cloud.com/checklist/72/pic-1.2.1.png">
+                                    @else
+                                        <img class="width-100"
+                                            src="https://amcbackend.mytime2cloud.com/checklist/{{ $attachment['form_entry_id'] }}/{{ $attachment['attachment'] }}">
+                                    @endif
 
                                 </div>
                             </td>

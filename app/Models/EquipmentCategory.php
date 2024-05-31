@@ -11,7 +11,7 @@ class EquipmentCategory extends Model
 
     protected $guarded = [];
 
-    protected $hidden = ["created_at","updated_at"];
+    protected $hidden = ["created_at", "updated_at"];
 
     public function headings()
     {
@@ -21,5 +21,11 @@ class EquipmentCategory extends Model
     public function equipment()
     {
         return $this->hasOne(Equipment::class);
+    }
+
+
+    public function equipments()
+    {
+        return $this->hasMany(Equipment::class);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EquipmentCategory\StoreRequest;
 use App\Http\Requests\EquipmentCategory\UpdateRequest;
-
+use App\Models\Company;
 use App\Models\EquipmentCategory;
 
 class EquipmentCategoryController extends Controller
@@ -14,6 +14,21 @@ class EquipmentCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function equipmentCategoryByCompanyId()
+    {
+        $ids = Company::pluck("id");
+
+        $arr = [];
+
+        foreach ($ids as $id) {
+            $arr[$id] = EquipmentCategory::orderBy("name", "asc")
+                ->whereHas("equipment", fn ($q) => $q->where("company_id", $id))
+                ->get();
+        }
+
+        return $arr;
+    }
     public function dropDownList()
     {
         return EquipmentCategory::orderBy("name", "asc")->get();
