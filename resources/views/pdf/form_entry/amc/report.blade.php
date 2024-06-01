@@ -295,48 +295,223 @@
                 </th>
             </tr>
         </table>
-        <table>
-            <tr>
-                <td style="width: 150px">Recorder</td>
-                <td colspan="2">{{ $equipment['recorder_brand'] }}</td>
-                <td>Total Qty</td>
-                <td>{{ $equipment['recorder_qty'] }}</td>
-                <td>HDD</td>
-                <td>{{ $equipment['recorder_capacity'] }}</td>
-            </tr>
-            <tr>
-                <td style="width: 150px">Work Station</td>
-                <td colspan="2">{{ $equipment['work_station'] }}</td>
-                <td>Total Qty</td>
-                <td colspan="3">{{ $equipment['work_station_qty'] }}</td>
-            </tr>
-            <tr>
-                <td style="width: 150px">Camera</td>
-                <td colspan="2">{{ $equipment['camera'] }}</td>
-                <td>Total Qty</td>
-                <td colspan="3">{{ $equipment['camera_qty'] }}</td>
-            </tr>
-            <tr>
-                <td style="width: 150px">Monitor</td>
-                <td colspan="2">{{ $equipment['monitor'] }}</td>
-                <td>Total Qty</td>
-                <td colspan="3">{{ $equipment['monitor_qty'] }}</td>
-            </tr>
-            <tr>
-                <td style="width: 150px">UPS</td>
-                <td>{{ $equipment['ups'] }}</td>
-                <td>{{ $equipment['ups_specs'] }}</td>
-                <td>Total Qty</td>
-                <td colspan="3">{{ $equipment['ups_qty'] }}</td>
-            </tr>
-            <tr>
-                <td style="width: 150px">Network Switch</td>
-                <td>{{ $equipment['network'] }}</td>
-                <td>{{ $equipment['network_specs'] }}</td>
-                <td>Total Qty</td>
-                <td colspan="3">{{ $equipment['network_qty'] }}</td>
-            </tr>
-        </table>
+        @if ($item['equipment_category']['slug'] == 'cctv')
+            <table>
+                <tr>
+                    <td style="width: 150px">Recorder</td>
+                    <td colspan="2">{{ $equipment['recorder_brand'] }}</td>
+                    <td>Total Qty</td>
+                    <td>{{ $equipment['recorder_qty'] }}</td>
+                    <td>HDD</td>
+                    <td>{{ $equipment['recorder_capacity'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 150px">Work Station</td>
+                    <td colspan="2">{{ $equipment['work_station'] }}</td>
+                    <td>Total Qty</td>
+                    <td colspan="3">{{ $equipment['work_station_qty'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 150px">Camera</td>
+                    <td colspan="2">{{ $equipment['camera'] }}</td>
+                    <td>Total Qty</td>
+                    <td colspan="3">{{ $equipment['camera_qty'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 150px">Monitor</td>
+                    <td colspan="2">{{ $equipment['monitor'] }}</td>
+                    <td>Total Qty</td>
+                    <td colspan="3">{{ $equipment['monitor_qty'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 150px">UPS</td>
+                    <td>{{ $equipment['ups'] }}</td>
+                    <td>{{ $equipment['ups_specs'] }}</td>
+                    <td>Total Qty</td>
+                    <td colspan="3">{{ $equipment['ups_qty'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 150px">Network Switch</td>
+                    <td>{{ $equipment['network'] }}</td>
+                    <td>{{ $equipment['network_specs'] }}</td>
+                    <td>Total Qty</td>
+                    <td colspan="3">{{ $equipment['network_qty'] }}</td>
+                </tr>
+            </table>
+        @elseif ($item['equipment_category']['slug'] == 'access_control')
+            <table>
+                <tr>
+                    <td style="width: 150px">Controller</td>
+                    <td>{{ $equipment['controller_brand'] }}</td>
+                    <td>Total Qty</td>
+                    <td>{{ $equipment['controller_qty'] }}</td>
+                    <td>Type</td>
+                    <td>{{ $equipment['controller_type'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Work Station</td>
+                    <td>{{ $equipment['work_station'] }}</td>
+                    <td colspan="2">{{ $equipment['work_station_qty'] }}</td>
+                    <td>Monitor</td>
+                    <td>{{ $equipment['monitor_qty'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Reader</td>
+                    <td>{{ $equipment['reader'] }}</td>
+                    <td colspan="2">{{ $equipment['reader_qty'] }}</td>
+                    <td>Type</td>
+                    <td>{{ $equipment['reader_type'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Lock</td>
+                    <td>{{ $equipment['lock'] }}</td>
+                    <td colspan="2">{{ $equipment['lock_qty'] }}</td>
+                    <td>Type</td>
+                    <td>{{ $equipment['lock_type'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>UPS</td>
+                    <td>{{ $equipment['ups'] }}</td>
+                    <td>{{ $equipment['ups_specs'] }}</td>
+                    <td>Total Qty</td>
+                    <td colspan="2">{{ $equipment['ups_qty'] }}</td>
+                </tr>
+                <tr>
+                    <td>Network Switch</td>
+                    <td>{{ $equipment['network'] }}</td>
+                    <td>{{ $equipment['network_specs'] }}</td>
+                    <td>Total Qty</td>
+                    <td colspan="2">{{ $equipment['network_qty'] }}</td>
+                </tr>
+                <tr>
+                    <td>Exit Switch</td>
+                    <td>{{ $equipment['exit_switch'] }}</td>
+                    <td>Fire Switch</td>
+                    <td>{{ $equipment['fire_switch'] }}</td>
+                    <td>Remote</td>
+                    <td>{{ $equipment['remote'] }}</td>
+                </tr>
+            </table>
+        @elseif ($item['equipment_category']['slug'] == 'gate_barrier')
+            <table>
+                <tr>
+                    <td style="width: 150px">Controller</td>
+                    <td>{{ $equipment['controller_brand'] }}</td>
+                    <td>Total Qty</td>
+                    <td>{{ $equipment['controller_qty'] }}</td>
+                    <td>Type</td>
+                    <td>{{ $equipment['controller_type'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Work Station</td>
+                    <td>{{ $equipment['work_station'] }}</td>
+                    <td colspan="2">{{ $equipment['work_station_qty'] }}</td>
+                    <td>Monitor</td>
+                    <td>{{ $equipment['monitor_qty'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Reader</td>
+                    <td>{{ $equipment['reader'] }}</td>
+                    <td colspan="2">{{ $equipment['reader_qty'] }}</td>
+                    <td>Type</td>
+                    <td>{{ $equipment['reader_type'] }}</td>
+                </tr>
+            </table>
+        @elseif ($item['equipment_category']['slug'] == 'intercom')
+            <table>
+                <tr>
+                    <td style="width: 150px">Controller</td>
+                    <td colspan="3">{{ $equipment['controller_brand'] }}</td>
+                    <td>Total Qty</td>
+                    <td>{{ $equipment['controller_qty'] }}</td>
+                    <td>Type</td>
+                    <td>{{ $equipment['controller_type'] }}</td>
+
+                </tr>
+                <tr>
+                    <td>Monitor</td>
+                    <td>{{ $equipment['monitor'] }}</td>
+                    <td>Total Qty</td>
+                    <td>{{ $equipment['monitor_qty'] }}</td>
+                    <td>Type</td>
+                    <td>{{ $equipment['monitor_type'] }}</td>
+                    <td>Size</td>
+                    <td>{{ $equipment['monitor_size'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Reader</td>
+                    <td>{{ $equipment['reader'] }}</td>
+                    <td colspan="2">{{ $equipment['reader_qty'] }}</td>
+                    <td colspan="2">Type</td>
+                    <td colspan="2">{{ $equipment['reader_type'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Lock</td>
+                    <td>{{ $equipment['lock'] }}</td>
+                    <td colspan="2">{{ $equipment['lock_qty'] }}</td>
+                    <td colspan="2">Type</td>
+                    <td colspan="2">{{ $equipment['lock_type'] }}</td>
+                </tr>
+                <tr>
+                    <td>Network Switch</td>
+                    <td>{{ $equipment['network'] }}</td>
+                    <td>{{ $equipment['network_specs'] }}</td>
+                    <td>Total Qty</td>
+                    <td colspan="4">{{ $equipment['network_qty'] }}</td>
+                </tr>
+                <tr>
+                    <td>Exit Switch</td>
+                    <td>{{ $equipment['exit_switch'] }}</td>
+                    <td>Fire Switch</td>
+                    <td>{{ $equipment['fire_switch'] }}</td>
+                    <td colspan="2">Remote</td>
+                    <td colspan="2">{{ $equipment['remote'] }}</td>
+                </tr>
+            </table>
+        @elseif ($item['equipment_category']['slug'] == 'alarm')
+            <table>
+                <tr>
+                    <td style="width: 150px">Controller</td>
+                    <td colspan="2" >{{ $equipment['controller_brand'] }}</td>
+                    <td colspan="2">Total Qty</td>
+                    <td>{{ $equipment['controller_qty'] }}</td>
+                    <td>Type</td>
+                    <td>{{ $equipment['controller_type'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Sensor </td>
+                    <td>{{ $equipment['sensor'] }}</td>
+                    <td colspan="2">{{ $equipment['sensor_qty'] }}</td>
+                    <td>Type</td>
+                    <td colspan="3">{{ $equipment['sensor_qty'] }}</td>
+                </tr>
+
+                <tr>
+                    <td>Keypad</td>
+                    <td>{{ $equipment['keypad'] }}</td>
+                    <td colspan="2">{{ $equipment['keypad_qty'] }}</td>
+                    <td colspan="2">Type</td>
+                    <td colspan="2">{{ $equipment['keypad_type'] }}</td>
+                </tr>
+                <tr>
+                    <td>UPS</td>
+                    <td>{{ $equipment['ups_specs'] }}</td>
+                    <td colspan="2">Auto Light</td>
+                    <td colspan="2">{{ $equipment['auto_light'] }}</td>
+                    <td colspan="2">{{ $equipment['auto_light_qty'] }}</td>
+                </tr>
+            </table>
+        @endif
+
         <table class="mt-1">
             <tr>
                 <td class="text-left border-none col-4"></td>
