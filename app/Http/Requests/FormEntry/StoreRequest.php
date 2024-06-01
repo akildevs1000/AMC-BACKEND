@@ -37,7 +37,7 @@ class StoreRequest extends FormRequest
             "description" => "nullable",
             "sign" => "nullable",
 
-            "defective_area" => "required",
+            "defective_area" => "nullable",
             "customer_name" => "nullable",
             "customer_phone" => "nullable",
             "customer_sign" => "nullable",

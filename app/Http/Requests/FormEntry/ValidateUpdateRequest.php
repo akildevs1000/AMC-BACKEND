@@ -25,7 +25,7 @@ class ValidateUpdateRequest extends FormRequest
     {
         return [
             "summary" => "required",
-            "defective_area" => "required",
+            "defective_area" => "nullable",
 
             "work_id" => "nullable",
             "work_type" => "nullable",

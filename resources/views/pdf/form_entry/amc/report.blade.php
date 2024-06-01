@@ -238,35 +238,35 @@
         <table>
             <tr>
                 <td style="width: 150px">Company Name</td>
-                <td colspan="6">{{ $item['amc']['contract']['company']['name'] ?? '---' }}</td>
+                <td colspan="6">{{ $company['name'] ?? '---' }}</td>
             </tr>
             <tr>
                 <td>Management Company</td>
-                <td colspan="4">{{ $item['amc']['contract']['company']['management_company_name'] ?? '---' }}</td>
+                <td colspan="4">{{ $company['management_company_name'] ?? '---' }}</td>
                 <td>Email</td>
-                <td>{{ $item['amc']['contract']['company']['management_company_email'] ?? '---' }}</td>
+                <td>{{ $company['management_company_email'] ?? '---' }}</td>
             </tr>
             <tr>
                 <td>Manager</td>
-                <td>{{ $item['amc']['contract']['company']['contact']['name'] ?? '---' }}</td>
+                <td>{{ $company['contact']['name'] ?? '---' }}</td>
                 <td>Email</td>
-                <td colspan="2">{{ $item['amc']['contract']['company']['contact']['email'] ?? '---' }}</td>
+                <td colspan="2">{{ $company['contact']['email'] ?? '---' }}</td>
                 <td>Phone</td>
-                <td>{{ $item['amc']['contract']['company']['contact']['number'] ?? '---' }}</td>
+                <td>{{ $company['contact']['number'] ?? '---' }}</td>
             </tr>
             <tr>
                 <td>Action Plan Issued By</td>
-                <td>{{ $item['amc']['contract']['company']['action_plan_issued_by'] ?? '---' }}</td>
+                <td>{{ $company['action_plan_issued_by'] ?? '---' }}</td>
                 <td colspan="2">Plot No</td>
-                <td>{{ $item['amc']['contract']['company']['plot_number'] ?? '---' }}</td>
+                <td>{{ $company['plot_number'] ?? '---' }}</td>
                 <td>Land DM No</td>
-                <td>{{ $item['amc']['contract']['company']['land_dm_number'] ?? '---' }}</td>
+                <td>{{ $company['land_dm_number'] ?? '---' }}</td>
             </tr>
             <tr>
                 <td>Address</td>
-                <td colspan="4">{{ $item['amc']['contract']['company']['address'] ?? '---' }}</td>
+                <td colspan="4">{{ $company['address'] ?? '---' }}</td>
                 <td>Makani Number</td>
-                <td>{{ $item['amc']['contract']['company']['makani_number'] ?? '---' }}</td>
+                <td>{{ $company['makani_number'] ?? '---' }}</td>
             </tr>
         </table>
         <table class="mt-1">
