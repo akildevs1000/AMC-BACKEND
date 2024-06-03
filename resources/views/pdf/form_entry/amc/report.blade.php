@@ -595,11 +595,11 @@
                 <td class="border-none col-6">
                     <div style="padding: 2px">
                         <div><strong>Name</strong></div>
-                        <div class="border-bottom">{{ $technician['customer_name'] }}</div>
+                        <div class="border-bottom">{{ $technician['customer_name'] ?? "---" }}</div>
                     </div>
                     <div style="padding: 2px">
                         <div><strong>Phone</strong></div>
-                        <div class="border-bottom">{{ $technician['customer_phone'] }}</div>
+                        <div class="border-bottom">{{ $technician['customer_phone'] ?? "---" }}</div>
                     </div>
                     <div style="padding: 2px">
                         <div><strong>Date Time</strong></div>
