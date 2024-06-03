@@ -21,6 +21,11 @@ class FormEntry extends Model
         return $this->belongsTo(Technician::class);
     }
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     /**
      * The checklists that belong to the FormEntry
      *

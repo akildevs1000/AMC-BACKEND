@@ -278,15 +278,15 @@
         <table>
             <tr>
                 <td style="width: 150px">AMC Start Date</td>
-                <td>{{ $item['amc']['contract']['show_start_date'] ?? '---' }}</td>
+                <td>{{ $amc['contract']['show_start_date'] ?? '---' }}</td>
                 <td colspan="2">AMC Expire Date</td>
-                <td>{{ $item['amc']['contract']['show_expire_date'] ?? '---' }}</td>
+                <td>{{ $amc['contract']['show_expire_date'] ?? '---' }}</td>
             </tr>
             <tr>
                 <td>Equipment</td>
                 <td colspan="2">{{ $item['equipment_category']['name'] ?? '---' }}</td>
                 <td>LPO Number</td>
-                <td>{{ $item['amc']['contract']['lpo_number'] ?? '---' }}</td>
+                <td>{{ $amc['contract']['lpo_number'] ?? '---' }}</td>
             </tr>
         </table>
         <table class="mt-1">
@@ -480,7 +480,7 @@
             <table>
                 <tr>
                     <td style="width: 150px">Controller</td>
-                    <td colspan="2" >{{ $equipment['controller_brand'] }}</td>
+                    <td colspan="2">{{ $equipment['controller_brand'] }}</td>
                     <td colspan="2">Total Qty</td>
                     <td>{{ $equipment['controller_qty'] }}</td>
                     <td>Type</td>

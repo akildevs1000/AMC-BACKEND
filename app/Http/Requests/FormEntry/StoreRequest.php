@@ -45,6 +45,9 @@ class StoreRequest extends FormRequest
 
             "technician_signed_datetime" => "nullable",
             "customer_signed_datetime" => "nullable",
+
+            "company_id" => "nullable",
+
             // 'questions' => 'required|array', // Ensure 'questions' is present and an array
 
             // 'questions.*.selectedOption' => 'array|required|in:Excellent,Good,Poor,Yes,No,N/A',

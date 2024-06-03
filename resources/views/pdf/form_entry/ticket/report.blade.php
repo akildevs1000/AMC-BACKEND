@@ -334,7 +334,39 @@
             <tr>
                 <td>{{ $item['summary'] ?? '---' }}</td>
             </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+
         </table>
+
+        @foreach ($checklist as $key => $checklistItem)
+            <table class="table mt-1">
+                <tr class="my-blue text-white ">
+                    <th>{{ $checklistItem['heading'] }}</th>
+                </tr>
+            </table>
+            <table>
+                @foreach ($checklistItem['questions'] as $qKey => $question)
+                    <tr>
+                        <td style="width: 50px">{{ $key + 1 }}. {{ $qKey + 1 }}
+                        </td>
+                        <td>{{ $question['question'] }}</td>
+
+                        <td style="width: 200px; border-bottom: 1px white solid !important"
+                            class="{{ getCellStyle($question['selectedOption']) }}  text-white text-center">
+                            {{ $question['selectedOption'] }}
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        @endforeach
 
 
         @if (count($attachmentChunks) > 0)
