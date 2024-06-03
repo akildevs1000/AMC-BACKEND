@@ -149,7 +149,6 @@ class FormEntryController extends Controller
         (new ChecklistController)->update($request, $id);
         try {
             FormEntry::where("id", $id)->update([
-                "defective_area" => $data["defective_area"],
                 "summary" => $data["summary"],
                 "technician_signed_datetime" => $data["technician_signed_datetime"]
             ]);
