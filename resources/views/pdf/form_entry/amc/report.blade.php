@@ -587,6 +587,43 @@
             </tr>
         </table>
 
+        <table class="table mt-2">
+            <tr class="my-blue text-white">
+                <th colspan="2">Customer Signature</th>
+            </tr>
+            <tr>
+                <td class="border-none col-6">
+                    <div style="padding: 2px">
+                        <div><strong>Name</strong></div>
+                        <div class="border-bottom">{{ $technician['customer_name'] }}</div>
+                    </div>
+                    <div style="padding: 2px">
+                        <div><strong>Phone</strong></div>
+                        <div class="border-bottom">{{ $technician['customer_phone'] }}</div>
+                    </div>
+                    <div style="padding: 2px">
+                        <div><strong>Date Time</strong></div>
+                        <div class="border-bottom">{{ $item['customer_signed_datetime'] }}</div>
+                    </div>
+                </td>
+                <td class="border-none col-6">
+                    <div style="text-align: center;">
+                        @if (env('APP_ENV') == 'local')
+                            <img style="width:125px;margin:0 auto;"
+                                src="https://amcbackend.mytime2cloud.com/sign/1717423099.png"
+                                alt="Image Description" />
+                        @else
+                            <img style="width:125px;margin:0 auto;" src="{{ $item['customer_sign'] }}"
+                                alt="Image Description" />
+                        @endif
+
+
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+
 
 
 
