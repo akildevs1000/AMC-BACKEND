@@ -543,6 +543,53 @@
             </table>
         @endforeach
 
+
+        {{--  --}}
+
+        <table class="table mt-2 page-break">
+            <tr class="my-blue text-white">
+                <th colspan="2">Technician Signature</th>
+            </tr>
+            <tr>
+                <td class="border-none col-6">
+                    <div style="padding: 2px">
+                        <div><strong>Name</strong></div>
+                        <div class="border-bottom">{{ $technician['name'] }}</div>
+                    </div>
+                    <div style="padding: 2px">
+                        <div><strong>Phone</strong></div>
+                        <div class="border-bottom">{{ $technician['phone_number'] }}</div>
+                    </div>
+                    <div style="padding: 2px">
+                        <div><strong>Email</strong></div>
+                        <div class="border-bottom">{{ $technician['email'] }}</div>
+                    </div>
+                    <div style="padding: 2px">
+                        <div><strong>Date Time</strong></div>
+                        <div class="border-bottom">{{ $item['technician_signed_datetime'] }}</div>
+                    </div>
+                </td>
+                <td class="border-none col-6">
+                    <div style="text-align: center;">
+                        @if (env('APP_ENV') == 'local')
+                            <img style="width:125px;margin:0 auto;"
+                                src="https://amcbackend.mytime2cloud.com/sign/1717423099.png"
+                                alt="Image Description" />
+                        @else
+                            <img style="width:125px;margin:0 auto;" src="{{ $item['sign'] }}"
+                                alt="Image Description" />
+                        @endif
+
+
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+
+
         @if (count($attachmentChunks) > 0)
             <table class="table mt-2 page-break">
                 <tr class="my-blue text-white">

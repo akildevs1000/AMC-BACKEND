@@ -209,11 +209,12 @@ class FormEntryController extends Controller
         $item = FormEntry::with($relations)->find($id);
         $ticket = $item['ticket'];
         $equipment = $item['equipment_category']['equipment'];
+        $technician = $item["technician"];
         $checklist = $item['checklist']['checklist'];
         $attachments = $item['attachments'];
         $attachmentChunks = array_chunk($attachments->toArray(), 2);
         $company = $item['company'];
-        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.ticket.report', compact("item", "ticket", "equipment", "checklist", "attachmentChunks", "company"))->stream();
+        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.ticket.report', compact("item", "ticket", "equipment", "technician", "checklist", "attachmentChunks", "company"))->stream();
     }
 
     public function amcPrint($id)
@@ -222,10 +223,11 @@ class FormEntryController extends Controller
         $item = FormEntry::with($relations)->find($id);
         $amc = $item['amc'];
         $equipment = $item['equipment_category']['equipment'];
+        $technician = $item["technician"];
         $checklist = $item['checklist']['checklist'];
         $attachments = $item['attachments'];
         $attachmentChunks = array_chunk($attachments->toArray(), 2);
         $company = $item['company'];
-        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.amc.report', compact("item", "amc", "equipment", "checklist", "attachmentChunks", "company"))->stream();
+        return Pdf::setPaper('a4', 'portrait')->loadView('pdf.form_entry.amc.report', compact("item", "amc", "equipment", "technician", "checklist", "attachmentChunks", "company"))->stream();
     }
 }
