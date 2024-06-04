@@ -67,6 +67,10 @@
             background-color: #a2b63b !important;
         }
 
+        .my-grey {
+            background-color: rgb(182, 182, 182) !important;
+        }
+
         .my-red {
             background-color: #e04e4f !important;
         }
@@ -595,11 +599,11 @@
                 <td class="border-none col-6">
                     <div style="padding: 2px">
                         <div><strong>Name</strong></div>
-                        <div class="border-bottom">{{ $technician['customer_name'] ?? "---" }}</div>
+                        <div class="border-bottom">{{ $technician['customer_name'] ?? '---' }}</div>
                     </div>
                     <div style="padding: 2px">
                         <div><strong>Phone</strong></div>
-                        <div class="border-bottom">{{ $technician['customer_phone'] ?? "---" }}</div>
+                        <div class="border-bottom">{{ $technician['customer_phone'] ?? '---' }}</div>
                     </div>
                     <div style="padding: 2px">
                         <div><strong>Date Time</strong></div>
@@ -666,7 +670,7 @@
         if (in_array($selectedOption, ['Excellent', 'Good', 'Yes'])) {
             return 'my-green';
         } elseif (in_array($selectedOption, ['N/A'])) {
-            return 'grey lighten-2';
+            return 'my-grey';
         } else {
             return 'my-red';
         }
