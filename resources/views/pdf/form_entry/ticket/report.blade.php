@@ -67,6 +67,10 @@
             background-color: #a2b63b !important;
         }
 
+        .my-grey {
+            background-color: rgb(182, 182, 182) !important;
+        }
+
         .my-red {
             background-color: #e04e4f !important;
         }
@@ -296,7 +300,7 @@
         </table>
         <table>
             <tr>
-                <td>{{ $ticket['description'] ?? '---' }}</td>
+                <td style="padding:20px 5px;">{{ $ticket['description'] ?? '---' }}</td>
             </tr>
         </table>
 
@@ -308,7 +312,7 @@
         </table>
         <table>
             <tr>
-                <td>{{ $item['description'] ?? '---' }}</td>
+                <td style="padding:20px 5px;">{{ $item['description'] ?? '---' }}</td>
             </tr>
         </table>
 
@@ -320,7 +324,7 @@
         </table>
         <table>
             <tr>
-                <td>{{ $item['action_taken'] ?? '---' }}</td>
+                <td style="padding:20px 5px;">{{ $item['action_taken'] ?? '---' }}</td>
             </tr>
         </table>
 
@@ -332,18 +336,8 @@
         </table>
         <table>
             <tr>
-                <td>{{ $item['summary'] ?? '---' }}</td>
+                <td style="padding:20px 5px;">{{ $item['summary'] ?? '---' }}</td>
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-
         </table>
 
         @foreach ($checklist as $key => $checklistItem)
@@ -357,7 +351,13 @@
                     <tr>
                         <td style="width: 50px">{{ $key + 1 }}. {{ $qKey + 1 }}
                         </td>
-                        <td>{{ $question['question'] }}</td>
+                        <td style="padding: 5px 5px;">{{ $question['question'] }}
+                            @if ($qKey == 0)
+                                <br>
+                                <p style="color: red"> HDD has to be change</p>
+                            @endif
+
+                        </td>
 
                         <td style="width: 200px; border-bottom: 1px white solid !important"
                             class="{{ getCellStyle($question['selectedOption']) }}  text-white text-center">
@@ -368,81 +368,75 @@
             </table>
         @endforeach
 
-        <table class="table mt-2 page-break">
+        <table class="mt-2">
             <tr class="my-blue text-white">
-                <th colspan="2">Technician Signature</th>
+                <th>Signature
+                </th>
             </tr>
+        </table>
+
+        <table class="table mt-2 ">
             <tr>
                 <td class="border-none col-6">
-                    <div style="padding: 2px">
-                        <div><strong>Name</strong></div>
-                        <div class="border-bottom">{{ $technician['name'] }}</div>
-                    </div>
-                    <div style="padding: 2px">
-                        <div><strong>Phone</strong></div>
-                        <div class="border-bottom">{{ $technician['phone_number'] }}</div>
-                    </div>
-                    <div style="padding: 2px">
-                        <div><strong>Email</strong></div>
-                        <div class="border-bottom">{{ $technician['email'] }}</div>
-                    </div>
-                    <div style="padding: 2px">
-                        <div><strong>Date Time</strong></div>
-                        <div class="border-bottom">{{ $item['technician_signed_datetime'] }}</div>
+                    <div class="border">
+                        <div style="text-align: centers;">
+                            @if (env('APP_ENV') == 'local')
+                                <img style="width:125px;margin:0 auto;"
+                                    src="https://amcbackend.mytime2cloud.com/sign/1717423099.png"
+                                    alt="Image Description" />
+                            @else
+                                <img style="width:125px;margin:0 auto;" src="{{ $item['sign'] }}"
+                                    alt="Image Description" />
+                            @endif
+                        </div>
+                        <div style="padding: 2px">
+                            <div class="border-bottom"><strong>Technician Name: </strong>{{ $technician['name'] }}
+                            </div>
+                        </div>
+                        <div style="padding: 2px">
+                            <div class="border-bottom"><strong>Technician Phone:
+                                </strong>{{ $technician['phone_number'] }}
+                            </div>
+                        </div>
+                        <div style="padding: 2px">
+                            <div class="border-none"><strong>Date Time:
+                                </strong>{{ $item['technician_signed_datetime'] }}</div>
+                        </div>
                     </div>
                 </td>
                 <td class="border-none col-6">
-                    <div style="text-align: center;">
-                        @if (env('APP_ENV') == 'local')
-                            <img style="width:125px;margin:0 auto;"
-                                src="https://amcbackend.mytime2cloud.com/sign/1717423099.png"
-                                alt="Image Description" />
-                        @else
-                            <img style="width:125px;margin:0 auto;" src="{{ $item['sign'] }}"
-                                alt="Image Description" />
-                        @endif
+                    <div class="border">
+                        <div style="text-align: centers;">
+                            @if (env('APP_ENV') == 'local')
+                                <img style="width:125px;margin:0 auto;"
+                                    src="https://amcbackend.mytime2cloud.com/sign/1717423099.png"
+                                    alt="Image Description" />
+                            @else
+                                <img style="width:125px;margin:0 auto;" src="{{ $item['customer_sign'] }}"
+                                    alt="Image Description" />
+                            @endif
 
+                        </div>
+                        <div style="padding: 2px">
+                            <div class="border-bottom"><strong>Customer Name
+                                </strong>{{ $item['customer_name'] ?? '---' }}</div>
+                        </div>
 
+                        <div style="padding: 2px">
+                            <div class="border-bottom"><strong>Customer Phone
+                                </strong>{{ $item['customer_phone'] ?? '---' }}</div>
+                        </div>
 
+                        <div style="padding: 2px">
+                            <div class="border-none"><strong>Date Time
+                                </strong>{{ $item['customer_signed_datetime'] ?? '---' }}</div>
+                        </div>
                     </div>
                 </td>
             </tr>
         </table>
 
-        <table class="table mt-2">
-            <tr class="my-blue text-white">
-                <th colspan="2">Customer Signature</th>
-            </tr>
-            <tr>
-                <td class="border-none col-6">
-                    <div style="padding: 2px">
-                        <div><strong>Name</strong></div>
-                        <div class="border-bottom">{{ $technician['customer_name'] ?? "---" }}</div>
-                    </div>
-                    <div style="padding: 2px">
-                        <div><strong>Phone</strong></div>
-                        <div class="border-bottom">{{ $technician['customer_phone'] ?? "---" }}</div>
-                    </div>
-                    <div style="padding: 2px">
-                        <div><strong>Date Time</strong></div>
-                        <div class="border-bottom">{{ $item['customer_signed_datetime'] }}</div>
-                    </div>
-                </td>
-                <td class="border-none col-6">
-                    <div style="text-align: center;">
-                        @if (env('APP_ENV') == 'local')
-                            <img style="width:125px;margin:0 auto;"
-                                src="https://amcbackend.mytime2cloud.com/sign/1717423099.png"
-                                alt="Image Description" />
-                        @else
-                            <img style="width:125px;margin:0 auto;" src="{{ $item['customer_sign'] }}"
-                                alt="Image Description" />
-                        @endif
 
-                    </div>
-                </td>
-            </tr>
-        </table>
 
         @if (env('APP_ENV') == 'local')
             <table class="table mt-2 page-break">
@@ -507,7 +501,7 @@
         if (in_array($selectedOption, ['Excellent', 'Good', 'Yes'])) {
             return 'my-green';
         } elseif (in_array($selectedOption, ['N/A'])) {
-            return 'grey lighten-2';
+            return 'my-grey';
         } else {
             return 'my-red';
         }
