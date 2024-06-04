@@ -536,7 +536,11 @@
                     <tr>
                         <td style="width: 50px">{{ $key + 1 }}. {{ $qKey + 1 }}
                         </td>
-                        <td>{{ $question['question'] }}</td>
+                        <td>{{ $question['question'] }} @if ($question['remarks'])
+                                <br>
+                                <p style="color: red"> {{ $question['remarks'] }} </p>
+                            @endif
+                        </td>
 
                         <td style="width: 200px; border-bottom: 1px white solid !important"
                             class="{{ getCellStyle($question['selectedOption']) }}  text-white text-center">
@@ -546,9 +550,6 @@
                 @endforeach
             </table>
         @endforeach
-
-
-        {{--  --}}
 
         <table class="table mt-2 page-break">
             <tr class="my-blue text-white">

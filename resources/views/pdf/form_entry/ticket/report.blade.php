@@ -352,11 +352,10 @@
                         <td style="width: 50px">{{ $key + 1 }}. {{ $qKey + 1 }}
                         </td>
                         <td style="padding: 5px 5px;">{{ $question['question'] }}
-                            @if ($qKey == 0)
+                            @if ($question['remarks'])
                                 <br>
-                                <p style="color: red"> HDD has to be change</p>
+                                <p style="color: red"> {{ $question['remarks'] }} </p>
                             @endif
-
                         </td>
 
                         <td style="width: 200px; border-bottom: 1px white solid !important"
