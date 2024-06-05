@@ -6,6 +6,7 @@ use App\Http\Requests\Ticket\StoreRequest;
 use App\Http\Requests\Ticket\UpdateRequest;
 use App\Models\Ticket;
 use App\Models\TicketHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -57,6 +58,8 @@ class TicketController extends Controller
 
         $data["status"] = "Pending";
         $data["ticket_open_date_time"] = date("Y-m-d H:i:s");
+        $data["created_at"] = Carbon::now();
+
 
         if ($request->attachment) {
             $data["attachment"] = Ticket::processAttachment($request->attachment);

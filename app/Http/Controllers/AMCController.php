@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ServiceCall\StoreRequest;
 use App\Models\ServiceCall;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,7 +51,9 @@ class AMCController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        return ServiceCall::create($request->validated());
+        $data = $request->validated();
+        $data['created_at'] = Carbon::now();
+        return ServiceCall::create($data);
     }
 
     /**
@@ -61,7 +64,19 @@ class AMCController extends Controller
      */
     public function bulkStore(Request $request)
     {
-        return ServiceCall::insert($request->all());
+        // Get the current timestamp
+        $currentTimestamp = Carbon::now();
+
+        // Get all the request data
+        $data = $request->all();
+
+        // Add the 'created_at' field to each record
+        foreach ($data as &$record) {
+            $record['created_at'] = $currentTimestamp;
+        }
+
+        // Perform the bulk insert with the modified data
+        return ServiceCall::insert($data);
     }
 
     public function serviceCallTechnicianAssigning(Request $request)
