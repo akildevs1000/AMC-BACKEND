@@ -12,12 +12,54 @@ class AMCController extends Controller
 {
     public function card()
     {
+        $total = ServiceCall::whereMonth("created_at", date("m"))->count();
+
+        $open_jobs = ServiceCall::whereMonth("created_at", date("m"))->where("status", "Pending")->count();
+        $closed_jobs = ServiceCall::whereMonth("created_at", date("m"))->where("status", "Completed")->count();
+
+        $assigned_jobs = ServiceCall::whereMonth("created_at", date("m"))->whereHas("technicians")->count();
+        $not_assigned = ServiceCall::whereMonth("created_at", date("m"))->doesntHave("technicians")->count();
+
+
+
         return [
-            "pending" => ServiceCall::whereMonth("created_at", date("m"))->where("status", "Pending")->count(),
-            "completed" => ServiceCall::whereMonth("created_at", date("m"))->where("status", "Completed")->count(),
-            "assigned" => ServiceCall::whereMonth("created_at", date("m"))->whereHas("technicians")->count(),
-            "not_assigned" => ServiceCall::whereMonth("created_at", date("m"))->doesntHave("technicians")->count(),
-            "total" => ServiceCall::whereMonth("created_at", date("m"))->count(),
+            [
+                "color" => "green",
+                "src" => "/bcase.png",
+                "title" => "Open Jobs",
+                "value" => $open_jobs . "/" . $total,
+                "job_type" => "AMC",
+                "cols" => "3",
+                "page" => "/amc",
+            ],
+            [
+                "color" => "red",
+                "src" => "/bcase.png",
+                "title" => "Closed Jobs",
+                "value" => $closed_jobs . "/" . $total,
+                "job_type" => "AMC",
+                "cols" => "3",
+                "page" => "/amc",
+            ],
+            [
+                "color" => "blue",
+                "src" => "/clock.png",
+                "title" => "Assigned Jobs",
+                "value" => $assigned_jobs . "/" . $total,
+                "job_type" => "AMC",
+                "cols" => "3",
+                "page" => "/amc",
+            ],
+            [
+                "color" => "red",
+                "src" => "/clock.png",
+                "title" => "Not Assigned Jobs",
+                "value" => $not_assigned . "/" . $total,
+                "job_type" => "AMC",
+                "cols" => "3",
+                "page" => "/amc",
+            ],
+
         ];
     }
 
