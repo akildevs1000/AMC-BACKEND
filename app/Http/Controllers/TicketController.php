@@ -4,20 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Ticket\StoreRequest;
 use App\Http\Requests\Ticket\UpdateRequest;
-use App\Http\Requests\TicketHistory\StoreRequest as TicketHistoryStoreRequest;
 use App\Models\Ticket;
 use App\Models\TicketHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function card()
+    {
+        return [
+            "pending" => Ticket::whereMonth("created_at", date("m"))->where("status", "Pending")->count(),
+            "completed" => Ticket::whereMonth("created_at", date("m"))->where("status", "Completed")->count(),
+            "assigned" => Ticket::whereMonth("created_at", date("m"))->whereHas("technicians")->count(),
+            "not_assigned" => Ticket::whereMonth("created_at", date("m"))->doesntHave("technicians")->count(),
+            "total" => Ticket::whereMonth("created_at", date("m"))->count(),
+        ];
+    }
+
     public function companyIndex()
     {
         $model = Ticket::query();

@@ -3,25 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ServiceCall\StoreRequest;
-use App\Models\Contract;
-use App\Models\Priority;
 use App\Models\ServiceCall;
-use App\Models\Technician;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AMCController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function card()
+    {
+        return [
+            "pending" => ServiceCall::whereMonth("created_at", date("m"))->where("status", "Pending")->count(),
+            "completed" => ServiceCall::whereMonth("created_at", date("m"))->where("status", "Completed")->count(),
+            "assigned" => ServiceCall::whereMonth("created_at", date("m"))->whereHas("technicians")->count(),
+            "not_assigned" => ServiceCall::whereMonth("created_at", date("m"))->doesntHave("technicians")->count(),
+            "total" => ServiceCall::whereMonth("created_at", date("m"))->count(),
+        ];
+    }
+
     public function dropDownList()
     {
         return ServiceCall::orderBy("id", "desc")->get();
     }
-
 
     /**
      * Display a listing of the resource.
