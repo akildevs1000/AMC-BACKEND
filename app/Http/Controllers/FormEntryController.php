@@ -7,6 +7,7 @@ use App\Http\Requests\FormEntry\ValidateRequest;
 use App\Http\Requests\FormEntry\ValidateUpdateRequest;
 use App\Models\Attachment;
 use App\Models\Checklist;
+use App\Models\Equipment;
 use App\Models\FormEntry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -222,7 +223,8 @@ class FormEntryController extends Controller
         $relations = ["attachments", "amc", "equipment_category", "technician", "checklist"];
         $item = FormEntry::with($relations)->find($id);
         $amc = $item['amc'];
-        $equipment = $item['equipment_category']['equipment'];
+        // return $equipment = $item['equipment_category']['equipment'];
+        $equipment = Equipment::where("company_id", $item->company_id)->first();
         $technician = $item["technician"];
         $checklist = $item['checklist']['checklist'];
         $attachments = $item['attachments'];
