@@ -177,6 +177,7 @@ class FormEntryController extends Controller
 
         $data["customer_name"] = $request->customer_name;
         $data["customer_phone"] = $request->customer_phone;
+        $data["customer_position"] = $request->customer_position ?? "Manager";
         $data["customer_note"] = $request->customer_note;
         $data["customer_signed_datetime"] = $request->customer_signed_datetime;
 

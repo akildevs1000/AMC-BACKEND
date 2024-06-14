@@ -607,6 +607,10 @@
                         <div class="border-bottom">{{ $item['customer_phone'] ?? '---' }}</div>
                     </div>
                     <div style="padding: 2px">
+                        <div><strong>Postion</strong></div>
+                        <div class="border-bottom">{{ $item['customer_position'] ?? '---' }}</div>
+                    </div>
+                    <div style="padding: 2px">
                         <div><strong>Date Time</strong></div>
                         <div class="border-bottom">{{ $item['customer_signed_datetime'] }}</div>
                     </div>
