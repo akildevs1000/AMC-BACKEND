@@ -223,7 +223,6 @@ class FormEntryController extends Controller
         $relations = ["attachments", "amc", "equipment_category", "technician", "checklist"];
         $item = FormEntry::with($relations)->find($id);
         $amc = $item['amc'];
-        // return $equipment = $item['equipment_category']['equipment'];
         $equipment = Equipment::where("company_id", $item->company_id)->first();
         $technician = $item["technician"];
         $checklist = $item['checklist']['checklist'];
