@@ -31,7 +31,7 @@ class ContactUpdateRequest extends FormRequest
             "number" => "required|min:3|max:20",
             "position" => "required|min:3|max:20",
             "whatsapp" => "required|min:3|max:20",
-            "email" => "required|min:3|max:20",
+            "email" => "required|min:3|max:100",
             "company_id" => "required",
         ];
     }
