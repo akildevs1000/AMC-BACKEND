@@ -577,7 +577,7 @@
             </tr>
         </table>
 
-        <table class="table mt-2 page-break">
+        <table class="table mt-2">
             <tr class="my-blue text-white">
                 <th colspan="2">Technician Signature</th>
             </tr>
