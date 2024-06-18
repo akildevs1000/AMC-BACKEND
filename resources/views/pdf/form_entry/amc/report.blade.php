@@ -553,6 +553,32 @@
 
         <table class="table mt-2 page-break">
             <tr class="my-blue text-white">
+                <th>Technician Summary</th>
+            </tr>
+            <tr>
+                <td class="border-none">
+                    <div style="padding: 2px;">
+                        <div class="border-bottom">{{ $item['summary'] }}</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table mt-2">
+            <tr class="my-blue text-white">
+                <th>Customer Note</th>
+            </tr>
+            <tr>
+                <td class="border-none">
+                    <div style="padding: 2px">
+                        <div class="border-bottom">{{ $item['customer_note'] }}</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table mt-2 page-break">
+            <tr class="my-blue text-white">
                 <th colspan="2">Technician Signature</th>
             </tr>
             <tr>
