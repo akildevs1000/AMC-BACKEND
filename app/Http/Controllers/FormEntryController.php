@@ -9,6 +9,7 @@ use App\Models\Attachment;
 use App\Models\Checklist;
 use App\Models\Equipment;
 use App\Models\FormEntry;
+use App\Models\ServiceCall;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -184,6 +185,11 @@ class FormEntryController extends Controller
 
         try {
             $response = FormEntry::where("id", $id)->update($data);
+
+            ServiceCall::where("id", $request->work_id)->update([
+                "status" => "Completed"
+            ]);
+
             return $this->response('Form Entry has been updated.', $response, true);
         } catch (\Exception $e) {
             return $this->response('Form Entry cannot created. Error: ' . $e->getMessage(), null, false);
